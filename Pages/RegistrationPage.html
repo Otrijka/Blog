@@ -11,9 +11,9 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="">
 <!-- Навбар -->
-<nav class="navbar expand-navbar-lg navbar-light shadow fixed-top">
+<nav class="navbar expand-navbar-lg navbar-light fixed-top bg-white shadow">
     <div class="container-fluid px-5 ">
         <div class="navbar-brand h1 m-0">Блог №415</div>
         <ul class="navbar-nav ps-3 me-auto">
@@ -28,9 +28,52 @@
         </ul>
     </div>
 </nav>
-
+<!-- Карточка регистрации -->
+<div class="container-fluid">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-sm-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title text-left">Регистрация</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">ФИО</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName"
+                                   placeholder="Иванов Иван Иванович">
+                        </div>
+                        <div class="mb-3">
+                            <label for="birthdate" class="form-label">Дата рождения</label>
+                            <input type="date" class="form-control" id="birthdate" name="birthdate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Пол</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="Man">Мужчина</option>
+                                <option value="Woman">Женщина</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary col-12">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Футер -->
-<footer class="footer bg-light py-3 fixed-bottom border-top text-muted" style="padding-left: 10%">
+<footer class="footer bg-light py-2 border-top fixed-bottom text-muted align-items-center" style="padding-left: 10%">
     Ⓒ 2023 - Блог №415
 </footer>
 </body>
