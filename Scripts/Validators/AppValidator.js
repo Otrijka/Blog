@@ -2,7 +2,7 @@
 
 
     NameIsValid(name) {
-        return name.trim().length >= 1;
+        return name.trim().length >= 1 && /[a-zA-Zа-яА-Я]/.test(name);
     }
 
     PasswordIsValid(password) {
