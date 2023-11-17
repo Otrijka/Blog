@@ -10,9 +10,6 @@
     }
 
     EmailIsValid(email) {
-        if (email.length === undefined || email.length === 0){
-            return true
-        }
         let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return pattern.test(email)
     }
