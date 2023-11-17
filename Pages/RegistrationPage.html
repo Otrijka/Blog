@@ -12,6 +12,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="">
+
 <!-- Навбар -->
 <nav class="navbar expand-navbar-lg navbar-light fixed-top bg-white shadow">
     <div class="container-fluid px-5 ">
@@ -28,6 +29,7 @@
         </ul>
     </div>
 </nav>
+
 <!-- Карточка регистрации -->
 <div class="container-fluid">
     <div class="row vh-100 justify-content-center align-items-center">
@@ -48,8 +50,8 @@
                         <div class="mb-3">
                             <label for="gender" class="form-label">Пол</label>
                             <select class="form-select" id="gender" name="gender">
-                                <option value="Man">Мужчина</option>
-                                <option value="Woman">Женщина</option>
+                                <option value="Male">Мужчина</option>
+                                <option value="Female">Женщина</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -65,16 +67,20 @@
                             <label for="password" class="form-label">Пароль</label>
                             <input type="password" class="form-control" id="password" name="password">
                         </div>
-                        <button type="submit" class="btn btn-primary col-12">Зарегистрироваться</button>
+                        <button type="button" class="btn btn-primary col-12" id="btn-register">Зарегистрироваться</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Футер -->
 <footer class="footer bg-light py-2 border-top fixed-bottom text-muted align-items-center" style="padding-left: 10%">
     Ⓒ 2023 - Блог №415
 </footer>
+<script src="../Models/UserRegisterModel.js"></script>
+<script src="../Scripts/Validators/AppValidator.js"></script>
+<script src="../Scripts/Registration_logic.js"></script>
 </body>
 </html>
