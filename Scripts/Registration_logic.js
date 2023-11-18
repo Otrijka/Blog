@@ -15,7 +15,6 @@ document.querySelector('#btn-register').addEventListener('click', () => {
     model.phoneNumber = (inputPhoneNumber.value.length === 0) ? undefined : inputPhoneNumber.value
     model.gender = inputGender.value
 
-    console.log(model)
     inputFullName.classList.remove('is-invalid')
     inputPassword.classList.remove('is-invalid')
     inputEmail.classList.remove('is-invalid')
