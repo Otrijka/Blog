@@ -2,25 +2,34 @@
 <!-- Карточка входа -->
 <div class="container-fluid">
     <div class="row vh-100 justify-content-center align-items-center">
-        <div class="col-md-4">
+        <div class="col-md-6 col-lg-4">
             <div class="card shadow">
                 <div class="card-body">
                     <h2 class="card-title text-left">Вход</h2>
                     <form>
+                        <div id="error-message" class="alert alert-danger d-none" role="alert">
+                            Неправильные учетные данные
+                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email"
                                    placeholder="name@example.com">
+                            <div id="invalid-email" class="invalid-feedback">Неккоректный email</div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Пароль</label>
                             <input type="password" class="form-control" id="password" name="password">
+                            <div id="invalid-password" class="invalid-feedback">Введите пароль</div>
+
                         </div>
-                        <button type="submit" class="btn mb-3 btn-primary col-12">Войти</button>
-                        <button type="submit" class="btn btn-secondary col-12">Зарегистрироваться</button>
+                        <button type="button" id="btn-login" class="btn mb-3 btn-primary col-12">Войти</button>
+                        <a href="registration/" id="btn-go-register" class="btn btn-secondary col-12">Зарегистрироваться</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="../Scripts/Validators/AppValidator.js"></script>
+    <script src="../Models/UserLoginModel.js"></script>
+    <script src="../Scripts/Login_logic.js"></script>
 </div>

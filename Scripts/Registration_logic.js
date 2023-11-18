@@ -52,13 +52,16 @@ document.querySelector('#btn-register').addEventListener('click', () => {
             "Content-type": "application/json"
         },
         body: JSON.stringify(model)
-    }).then((response) => response.json())
+    }).then((response) => {
+        if (response.status === 400){
+            document.querySelector('#email').classList.add('is-invalid')
+            document.querySelector('#invalid-email').innerHTML = 'Этот email уже используется'
+            return
+        }
+        return response.json()
+    })
         .then((data) => {
             console.log(data)
-            if (Object.keys(data)[0] === 'DuplicateUserName'){
-                document.querySelector('#email').classList.add('is-invalid')
-                document.querySelector('#invalid-email').innerHTML = 'Этот email уже используется'
-            }
         })
 
 })
