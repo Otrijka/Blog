@@ -18,9 +18,8 @@
         if (birthDate === undefined || birthDate.length === 0){
             return true
         }
-        let inputBirthDate = new Date(birthDate)
-        let currentDate = new Date()
-        return inputBirthDate < currentDate
+        let currentDate = new Date().toISOString()
+        return birthDate < currentDate
     }
 
     PhoneNumberIsValid(phoneNumber){
