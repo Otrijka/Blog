@@ -1,12 +1,13 @@
+let inputFullName = document.querySelector('#fullName')
+let inputPassword = document.querySelector('#password')
+let inputEmail = document.querySelector('#email')
+let inputBirthDate = document.querySelector('#birthdate')
+let inputPhoneNumber = document.querySelector('#phone')
+let inputGender = document.querySelector('#gender')
+let defaultEmailErrorMessage = document.querySelector('#invalid-email').innerHTML
 document.querySelector('#btn-register').addEventListener('click', () => {
-    let model = new UserRegisterModel()
-    let inputFullName = document.querySelector('#fullName')
-    let inputPassword = document.querySelector('#password')
-    let inputEmail = document.querySelector('#email')
-    let inputBirthDate = document.querySelector('#birthdate')
-    let inputPhoneNumber = document.querySelector('#phone')
-    let inputGender = document.querySelector('#gender')
 
+    let model = new UserRegisterModel()
     model.fullName = inputFullName.value
     model.password = inputPassword.value
     model.email = inputEmail.value
@@ -18,11 +19,12 @@ document.querySelector('#btn-register').addEventListener('click', () => {
     inputFullName.classList.remove('is-invalid')
     inputPassword.classList.remove('is-invalid')
     inputEmail.classList.remove('is-invalid')
+    document.querySelector('#invalid-email').innerHTML = defaultEmailErrorMessage
     inputBirthDate.classList.remove('is-invalid')
     inputPhoneNumber.classList.remove('is-invalid')
     inputGender.classList.remove('is-invalid')
+    
     let validateResult = model.IsValid()
-
     if (Object.values(validateResult).some(value => value === false)) {
         if (validateResult.fullName === false) {
             inputFullName.classList.add('is-invalid')
@@ -52,6 +54,12 @@ document.querySelector('#btn-register').addEventListener('click', () => {
         },
         body: JSON.stringify(model)
     }).then((response) => response.json())
-        .then((data) => console.log(data))
+        .then((data) => {
+            console.log(data)
+            if (Object.keys(data)[0] === 'DuplicateUserName'){
+                document.querySelector('#email').classList.add('is-invalid')
+                document.querySelector('#invalid-email').innerHTML = 'Этот email уже используется'
+            }
+        })
 
 })
