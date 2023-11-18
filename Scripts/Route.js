@@ -17,7 +17,7 @@ function route(){
             break
     }
 
-    fetch('../Pages/' + 'LoginPage' + '.html')
+    fetch('../Pages/' + pageName + '.html')
         .then((response) =>{
             return response.text();
         })
