@@ -1,20 +1,57 @@
 document.querySelector('#btn-register').addEventListener('click', () => {
     let model = new UserRegisterModel()
-    model.fullName = document.querySelector('#fullName').value
-    model.password = document.querySelector('#password').value
-    model.email = document.querySelector('#email').value
-    model.birthDate = document.querySelector('#birthdate').value
-    model.phoneNumber = document.querySelector('#phone').value
-    model.gender = document.querySelector('#gender').value
+    let inputFullName = document.querySelector('#fullName')
+    let inputPassword = document.querySelector('#password')
+    let inputEmail = document.querySelector('#email')
+    let inputBirthDate = document.querySelector('#birthdate')
+    let inputPhoneNumber = document.querySelector('#phone')
+    let inputGender = document.querySelector('#gender')
 
-
-    if (Object.values(model.IsValid()).some(value => value === false)) {
-
-    } else {
-
-    }
+    model.fullName = inputFullName.value
+    model.password = inputPassword.value
+    model.email = inputEmail.value
+    model.birthDate = (inputBirthDate.value.length !== 0) ? new Date(inputBirthDate.value).toISOString() : undefined;
+    model.phoneNumber = (inputPhoneNumber.value.length === 0) ? undefined : inputPhoneNumber.value
+    model.gender = inputGender.value
 
     console.log(model)
-    console.log(model.IsValid())
+    inputFullName.classList.remove('is-invalid')
+    inputPassword.classList.remove('is-invalid')
+    inputEmail.classList.remove('is-invalid')
+    inputBirthDate.classList.remove('is-invalid')
+    inputPhoneNumber.classList.remove('is-invalid')
+    inputGender.classList.remove('is-invalid')
+    let validateResult = model.IsValid()
+
+    if (Object.values(validateResult).some(value => value === false)) {
+        if (validateResult.fullName === false) {
+            inputFullName.classList.add('is-invalid')
+        }
+        if (validateResult.password === false) {
+            inputPassword.classList.add('is-invalid')
+        }
+        if (validateResult.email === false) {
+            inputEmail.classList.add('is-invalid')
+        }
+        if (validateResult.birthDate === false) {
+            inputBirthDate.classList.add('is-invalid')
+        }
+        if (validateResult.phoneNumber === false) {
+            inputPhoneNumber.classList.add('is-invalid')
+        }
+        if (validateResult.gender === false) {
+            inputGender.classList.add('is-invalid')
+        }
+        return
+    }
+
+    fetch("https://blog.kreosoft.space/api/account/register", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(model)
+    }).then((response) => response.json())
+        .then((data) => console.log(data))
 
 })
