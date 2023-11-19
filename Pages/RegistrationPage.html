@@ -1,12 +1,10 @@
 
 <!-- Карточка регистрации -->
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 
 
-<div class="container-fluid">
-    <div class="row vh-100 justify-content-center align-items-center">
+<div class="container-fluid h-100">
+    <div class="row h-100 justify-content-center align-items-center">
         <div class="col-md-6 col-lg-4">
             <div class="card shadow">
                 <div class="card-body">
@@ -34,7 +32,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Телефон</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7-(___)-___-__-__">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="">
                             <div id="invalid-phone" class="invalid-feedback">Неккоректный номер телефона</div>
                         </div>
                         <div class="mb-3">
@@ -57,9 +55,10 @@
             </div>
         </div>
     </div>
-    <script src="../Scripts/CustomInputPhoneMask.js"></script>
     <script src="../Scripts/Validators/AppValidator.js" ></script>
     <script src="../Models/UserRegisterModel.js" ></script>
     <script src="../Scripts/Registration_logic.js" ></script>
+
+
 
 </div>

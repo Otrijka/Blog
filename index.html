@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <title>Блог №415</title>
@@ -11,15 +11,15 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body class="">
+<body style="display: flex; flex-direction: column; height: 100%">
 
 <!-- Навбар -->
-<nav class="navbar expand-navbar-lg navbar-light fixed-top bg-white shadow">
+<nav class="navbar expand-navbar-lg navbar-light bg-white shadow">
     <div class="container-fluid px-5 ">
         <div class="navbar-brand h1 m-0">Блог №415</div>
         <ul class="navbar-nav ps-3 me-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link">Главная</a>
+                <a href="/" class="nav-link">Главная</a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -29,17 +29,18 @@
         </ul>
     </div>
 </nav>
+<main style="flex: 1 0 auto;">
 
 
-<div id="content-place"></div>
-
+    <div id="content-place" class="h-100"></div>
+</main>
 
 <!-- Футер -->
-<footer class="footer bg-light py-2 border-top fixed-bottom text-muted align-items-center" style="padding-left: 10%">
+<footer class="footer bg-light py-2 border-top text-muted" style="padding-left: 10%;">
     Ⓒ 2023 - Блог №415
 </footer>
 
-<script src="../Scripts/Route.js"></script>
+<script src="Scripts/Route.js"></script>
 
 </body>
 </html>
