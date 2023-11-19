@@ -22,7 +22,18 @@
                 <a href="/" class="nav-link">Главная</a>
             </li>
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav me-5 d-none" id="dropdown-header">
+            <li class="nav-item dropdown">
+                <button class="btn btn dropdown-toggle" id="btn-dropdown-header" data-bs-toggle="dropdown" aria-expanded="false">
+
+                </button>
+                <ul class="dropdown-menu dropdown-menu position-absolute">
+                    <li><a class="dropdown-item" href="#">Профиль</a></li>
+                    <li><a class="dropdown-item" href="#">Выйти</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav d-none" id="btn-login-header">
             <li class="nav-item">
                 <a href="/login" class="nav-link">Вход</a>
             </li>
@@ -40,6 +51,7 @@
     Ⓒ 2023 - Блог №415
 </footer>
 
+<script src="Scripts/CheckUserToken.js"></script>
 <script src="Scripts/Route.js"></script>
 
 </body>
