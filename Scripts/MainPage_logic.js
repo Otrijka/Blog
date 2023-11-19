@@ -1,7 +1,7 @@
 class Post {
     title = undefined
     description = undefined
-    readindTime = undefined
+    readingTime = undefined
     image = undefined
     authorId = undefined
     author = undefined
@@ -68,7 +68,94 @@ function getTags() {
 }
 
 getTags()
-document.querySelector('#btn-apply').addEventListener('click', () => {
+
+function getPosts(query) {
+    let postsList = []
+    let url = 'https://blog.kreosoft.space/api/post'
+    if (query != undefined && query !== null){
+        url += query
+    }
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            data.posts.forEach(post => {
+                let newPost = new Post()
+                newPost.title = post.title
+                newPost.description = post.description
+                newPost.readingTime = post.readingTime
+                newPost.image = post.image
+                newPost.authorId = post.authorId
+                newPost.author = post.author
+                newPost.communityId = post.communityId
+                newPost.communityName = post.communityName
+                newPost.addressId = post.addressId
+                newPost.likes = post.likes
+                newPost.hasLike = post.hasLike
+                newPost.commentsCount = post.commentsCount
+                newPost.tags = post.tags
+                postsList.push(newPost)
+                drawPost(newPost)
+            })
+        })
+
+    return postsList
+}
+
+function isImageValid(url, callback) {
+    let img = new Image();
+    img.onload = function () {
+        callback(true);
+    };
+    img.onerror = function () {
+        callback(false);
+    };
+    img.src = url;
+}
+
+function drawPost(post) {
+    let postsContainer = document.querySelector('#posts-container')
+    postsContainer.innerHTML = ''
+    fetch('../Pages/Templates/PostTemplate.html')
+        .then((response) => response.text())
+        .then((template) => {
+            let cardTemplate = document.createElement('div')
+            cardTemplate.innerHTML = template.trim()
+            cardTemplate.querySelector('#post-template-author').textContent = post.author
+            cardTemplate.querySelector('#post-template-title').textContent = post.title
+            cardTemplate.querySelector('#post-template-description').textContent = post.description
+            cardTemplate.querySelector('#post-template-date').textContent = post.date
+            cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
+            cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
+            cardTemplate.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
+            cardTemplate.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
+            isImageValid(post.image, (isValid) => {
+                if (isValid) {
+                    cardTemplate.querySelector('#post-template-img').src = post.image
+                   // console.log(post.title + ' Загружено: ' + post.image)
+                } else {
+                    //console.log(post.title + ' Загрузка провалена: ' + post.image)
+                }
+            })
+            post.tags.forEach(tag => {
+                let newTag = document.createElement('span')
+                newTag.textContent = '#' + tag.name + ' '
+                cardTemplate.querySelector('#post-template-tags').appendChild(newTag)
+            })
+            postsContainer.appendChild(cardTemplate)
+        })
+}
+
+
+getPosts()
+
+function getFiltersQuery(){
     filters = new PageFilters()
     filters.author = document.querySelector('#filter-author-name').value
     filters.tags = Array.from(document.querySelector('#filter-tags').selectedOptions).map(option => option.value)
@@ -76,13 +163,17 @@ document.querySelector('#btn-apply').addEventListener('click', () => {
     filters.max = document.querySelector('#filter-max-reading-time').value
     filters.sorting = document.querySelector('#filter-sorting-by').value
     filters.onlyMyCommunities = document.querySelector('#filter-own-group').checked
+    return filters.BuildQuery()
+}
 
-    let newQuery = filters.BuildQuery()
+document.querySelector('#btn-apply').addEventListener('click', () => {
+    let newQuery = getFiltersQuery()
     window.history.pushState({}, '', window.location.pathname + newQuery)
+    getPosts(newQuery)
 })
 
-window.onload = () =>{
-    window.history.pushState({},'',window.location.origin)
+window.onload = () => {
+    window.history.pushState({}, '', window.location.origin)
 }
 
 
