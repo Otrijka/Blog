@@ -1,3 +1,5 @@
+let MAX_LETTERS_ON_DESCRIPTION = 200
+
 class Post {
     title = undefined
     description = undefined
@@ -129,7 +131,35 @@ function drawPost(post) {
             cardTemplate.innerHTML = template.trim()
             cardTemplate.querySelector('#post-template-author').textContent = post.author
             cardTemplate.querySelector('#post-template-title').textContent = post.title
-            cardTemplate.querySelector('#post-template-description').textContent = post.description
+            let descriptionHolder = cardTemplate.querySelector('#post-template-description')
+            let showedLetters = 0
+            let paragraphs = post.description.split(/\r\n\r\n/)
+            let iterator = 0;
+            while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < paragraphs.length){
+                let newParagraph = document.createElement('p')
+                newParagraph.textContent = paragraphs[iterator]
+                descriptionHolder.appendChild(newParagraph)
+                showedLetters+=paragraphs[iterator].length
+                iterator++
+                if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < paragraphs.length){
+                    let readMoreBtn = document.createElement('button')
+                    readMoreBtn.classList.add('btn')
+                    readMoreBtn.classList.add('btn-link')
+                    readMoreBtn.textContent = 'Читать далее'
+                    readMoreBtn.style.display = 'block'
+                    descriptionHolder.appendChild(readMoreBtn)
+                    readMoreBtn.onclick = () =>{
+                        descriptionHolder.removeChild(readMoreBtn)
+                        while (iterator < paragraphs.length){
+                            let newParagraph = document.createElement('p')
+                            newParagraph.textContent = paragraphs[iterator]
+                            descriptionHolder.appendChild(newParagraph)
+                            iterator++
+                        }
+                    }
+                }
+            }
+            //cardTemplate.querySelector('#post-template-description').innerHTML = post.description
             cardTemplate.querySelector('#post-template-date').textContent = post.date
             cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
