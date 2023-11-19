@@ -1,19 +1,17 @@
 
 <!-- Карточка регистрации -->
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 
 
-<div class="container-fluid">
-    <div class="row vh-100 justify-content-center align-items-center">
+<div class="container-fluid h-100">
+    <div class="row h-100 justify-content-center align-items-center">
         <div class="col-md-6 col-lg-4">
             <div class="card shadow">
                 <div class="card-body">
                     <h2 class="card-title text-left">Регистрация</h2>
                     <form>
                         <div class="mb-3">
-                            <label for="fullName" class="form-label">ФИО</label>
+                            <label for="fullName" class="form-label"><span style="color: red">*</span>ФИО</label>
                             <input type="text" class="form-control" id="fullName" name="fullName"
                                    placeholder="Иванов Иван Иванович">
                             <div id="invalid-fullName" class="invalid-feedback">Фио должно быть не короче 1 символа и не
@@ -34,17 +32,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Телефон</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7-(___)-___-__-__">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="">
                             <div id="invalid-phone" class="invalid-feedback">Неккоректный номер телефона</div>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label"><span style="color: red">*</span>Email</label>
                             <input type="email" class="form-control" id="email" name="email"
                                    placeholder="name@example.com">
                             <div id="invalid-email" class="invalid-feedback">Неккоректный email</div>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Пароль</label>
+                            <label for="password" class="form-label"><span style="color: red">*</span>Пароль</label>
                             <input type="password" class="form-control" id="password" name="password">
                             <div id="invalid-password" class="invalid-feedback">Пароль должен быть не короче 6 символов
                                 и содержать хотя бы одну цифру
@@ -57,9 +55,10 @@
             </div>
         </div>
     </div>
-    <script src="../Scripts/CustomInputPhoneMask.js"></script>
     <script src="../Scripts/Validators/AppValidator.js" ></script>
     <script src="../Models/UserRegisterModel.js" ></script>
     <script src="../Scripts/Registration_logic.js" ></script>
+
+
 
 </div>

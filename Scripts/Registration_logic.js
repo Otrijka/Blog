@@ -61,7 +61,8 @@ document.querySelector('#btn-register').addEventListener('click', () => {
         return response.json()
     })
         .then((data) => {
-            console.log(data)
+            window.localStorage.setItem('jwtToken', data.token)
+            window.location.href = '/'
         })
 
 })
