@@ -12,12 +12,15 @@ function route(){
         case '/login':
             pageName = 'LoginPage'
             break;
+        case '/':
+            pageName = 'MainPage'
+            break
         default:
             pageName = 'NotFoundPage'
             break
     }
 
-    fetch('../Pages/' + pageName + '.html')
+    fetch('../Pages/' + 'MainPage' + '.html')
         .then((response) =>{
             return response.text();
         })
