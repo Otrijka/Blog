@@ -64,6 +64,40 @@
             <div id="posts-container">
 
             </div>
+            <!-- Пагинация -->
+            <div class="row mb-3">
+                <div class=" col-2 me-auto mt-3">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <button class="page-link" id="btn-prev-page">
+                                <i class="bi bi-chevron-double-left"></i>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" id="btn-next-page" aria-label="Следующая">
+                                <i class="bi bi-chevron-double-right"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class=" col-3 ms-auto">
+                    <div class="form-group mb-0">
+                        <label class="form-label fs-6 mb-0" for="page-post-size">Число постов на странице</label>
+                        <select class="form-select" id="page-post-size">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected>5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="../Scripts/MainPage_logic.js"></script>

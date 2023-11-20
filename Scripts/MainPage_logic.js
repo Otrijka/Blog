@@ -1,4 +1,7 @@
 let MAX_LETTERS_ON_DESCRIPTION = 200
+let CURRENT_PAGE_SIZE = 5
+let CURRENT_PAGE = 1
+let CURRENT_PAGE_COUNT
 
 class Post {
     title = undefined
@@ -23,8 +26,8 @@ class PageFilters {
     max = undefined
     sorting = undefined
     onlyMyCommunities = false
-    page = 1
-    size = 5
+    page = CURRENT_PAGE
+    size = CURRENT_PAGE_SIZE
 
     BuildQuery() {
         let query = '?'
@@ -72,6 +75,7 @@ function getTags() {
 getTags()
 
 function getPosts(query) {
+    console.log(query)
     let postsList = []
     let url = 'https://blog.kreosoft.space/api/post'
     if (query != undefined && query !== null){
@@ -87,6 +91,10 @@ function getPosts(query) {
             return response.json()
         })
         .then((data) => {
+            console.log(data)
+            let pagination = data.pagination
+            CURRENT_PAGE_COUNT = pagination.count
+            CURRENT_PAGE = pagination.current
             data.posts.forEach(post => {
                 let newPost = new Post()
                 newPost.title = post.title
@@ -106,7 +114,6 @@ function getPosts(query) {
                 drawPost(newPost)
             })
         })
-
     return postsList
 }
 
@@ -159,7 +166,6 @@ function drawPost(post) {
                     }
                 }
             }
-            //cardTemplate.querySelector('#post-template-description').innerHTML = post.description
             cardTemplate.querySelector('#post-template-date').textContent = post.date
             cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
@@ -197,8 +203,39 @@ function getFiltersQuery(){
 }
 
 document.querySelector('#btn-apply').addEventListener('click', () => {
+    CURRENT_PAGE = 1
     let newQuery = getFiltersQuery()
     window.history.pushState({}, '', window.location.pathname + newQuery)
+    getPosts(newQuery)
+})
+
+document.querySelector('#btn-prev-page').addEventListener('click', () => {
+    document.querySelector('#btn-next-page').disabled = false
+    if (CURRENT_PAGE === 1){
+        document.querySelector('#btn-prev-page').disabled = true
+        return
+    }
+    CURRENT_PAGE--
+    let newQuery = getFiltersQuery()
+    getPosts(newQuery)
+})
+
+document.querySelector('#btn-next-page').addEventListener('click', () => {
+    document.querySelector('#btn-prev-page').disabled = false
+    if (CURRENT_PAGE === CURRENT_PAGE_COUNT){
+        document.querySelector('#btn-next-page').disabled = true
+        return
+    }
+    CURRENT_PAGE++
+    //getPosts('?page=' + CURRENT_PAGE)
+    let newQuery = getFiltersQuery()
+    getPosts(newQuery)
+})
+
+document.querySelector('#page-post-size').addEventListener('change', () => {
+    CURRENT_PAGE_SIZE = document.querySelector('#page-post-size').value
+    CURRENT_PAGE = 1
+    let newQuery = getFiltersQuery()
     getPosts(newQuery)
 })
 
