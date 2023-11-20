@@ -199,6 +199,7 @@ function getFiltersQuery(){
     filters.max = document.querySelector('#filter-max-reading-time').value
     filters.sorting = document.querySelector('#filter-sorting-by').value
     filters.onlyMyCommunities = document.querySelector('#filter-own-group').checked
+    filters.size = CURRENT_PAGE_SIZE
     return filters.BuildQuery()
 }
 
@@ -236,6 +237,9 @@ document.querySelector('#page-post-size').addEventListener('change', () => {
     CURRENT_PAGE_SIZE = document.querySelector('#page-post-size').value
     CURRENT_PAGE = 1
     let newQuery = getFiltersQuery()
+    if (window.location.search !== ''){
+        window.history.pushState({}, '', window.location.pathname + newQuery)
+    }
     getPosts(newQuery)
 })
 
