@@ -39,7 +39,6 @@ function getAuthors() {
                 newAuthor.gender = author.gender
                 newAuthor.fullName = author.fullName
                 newAuthor.position = index + 1
-                console.log(newAuthor)
                 drawAuthor(newAuthor)
             })
         })
@@ -54,6 +53,7 @@ function drawAuthor(author){
     fetch("../Pages/Templates/AuthorTemplate.html")
         .then((response) => response.text())
         .then((template) =>{
+            let authorFragment = document.createDocumentFragment();
             let authorTemplate = document.createElement('div')
             authorTemplate.innerHTML = template.trim()
             authorTemplate.querySelector('#author-template-birthDate').textContent = author.birthDate.substring(0,10).split('-').reverse().join('.')
@@ -77,7 +77,10 @@ function drawAuthor(author){
                     imgSrc = (author.gender === 'Male') ? '../Images/Man/man.svg' : '../Images/Woman/woman.svg'
             }
             image.src = imgSrc
-            authorContainer.appendChild(authorTemplate)
+            while (authorTemplate.firstChild) {
+                authorFragment.appendChild(authorTemplate.firstChild);
+            }
+            authorContainer.appendChild(authorFragment)
         })
         .catch((error) => {
             console.log(error)
