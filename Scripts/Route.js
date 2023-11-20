@@ -13,6 +13,9 @@ function route() {
         case '/profile':
             pageName = 'UserProfilePage'
             break;
+        case '/authors':
+            pageName = 'AuthorsPage'
+            break;
         case '/':
             pageName = 'MainPage'
             break

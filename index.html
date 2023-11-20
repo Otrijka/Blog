@@ -15,32 +15,42 @@
 <body style="display: flex; flex-direction: column; height: 100%">
 
 <!-- Навбар -->
-<nav class="navbar expand-navbar-lg navbar-light bg-white shadow">
-    <div class="container-fluid px-5 ">
-        <div class="navbar-brand h1 m-0">Блог №415</div>
-        <ul class="navbar-nav ps-3 me-auto">
-            <li class="nav-item">
-                <a href="/" class="nav-link">Главная</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav me-5 d-none" id="dropdown-header">
-            <li class="nav-item dropdown">
-                <button class="btn btn dropdown-toggle" id="btn-dropdown-header" data-bs-toggle="dropdown" aria-expanded="false">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
+    <div class="container-fluid ps-5">
+        <div class="navbar-brand h1 ">Блог №415</div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ps-3 me-auto">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Главная</a>
+                </li>
+                <li class="nav-item" id="btn-authors-header">
+                    <a href="/authors"  class="nav-link">Авторы</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav me-5 d-none" id="dropdown-header">
+                <li class="nav-item dropdown">
+                    <button class="btn btn dropdown-toggle" id="btn-dropdown-header" data-bs-toggle="dropdown" aria-expanded="false">
 
-                </button>
-                <ul class="dropdown-menu dropdown-menu position-absolute">
-                    <li><a class="dropdown-item" id="btn-profile-header" href="/profile">Профиль</a></li>
-                    <li><a class="dropdown-item" id="btn-logout-header" href="/login">Выйти</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="navbar-nav d-none" id="btn-login-header">
-            <li class="nav-item">
-                <a href="/login" class="nav-link">Вход</a>
-            </li>
-        </ul>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" id="btn-profile-header" href="/profile">Профиль</a></li>
+                        <li><a class="dropdown-item" id="btn-logout-header" href="/login">Выйти</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-none" id="btn-login-header">
+                <li class="nav-item">
+                    <a href="/login" class="nav-link">Вход</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
+
+<!-- Контент -->
 <main style="flex: 1 0 auto;">
 
 
