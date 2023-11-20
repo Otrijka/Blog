@@ -10,6 +10,9 @@ function route() {
         case '/login':
             pageName = 'LoginPage'
             break;
+        case '/profile':
+            pageName = 'UserProfilePage'
+            break;
         case '/':
             pageName = 'MainPage'
             break
