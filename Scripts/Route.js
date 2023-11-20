@@ -1,7 +1,7 @@
 function route() {
     let contentPlace = document.querySelector('#content-place')
     let url = window.location.pathname
-    let pageName = ''
+    let pageName
 
     switch (url) {
         case '/registration':
@@ -38,11 +38,10 @@ function route() {
         })
 }
 
-
-document.querySelector('#btn-logout-header').addEventListener('click', logOut)
 function logOut() {
     localStorage.removeItem('jwtToken')
 }
 
+document.querySelector('#btn-logout-header').addEventListener('click', logOut)
 
 route()

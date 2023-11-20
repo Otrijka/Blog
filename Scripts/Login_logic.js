@@ -28,15 +28,19 @@ document.querySelector('#btn-login').addEventListener('click', () => {
         },
         body: JSON.stringify(model)
     }).then((response) => {
-        if (response.status === 400) {
+        if (!response.ok) {
+            console.log(JSON.stringify(model))
             document.querySelector('#error-message').classList.remove('d-none')
-            return
+            throw new Error(response.statusText)
         }
         return response.json()
     })
         .then((data) => {
             window.localStorage.setItem('jwtToken', data.token)
             window.location.href = '/'
+        })
+        .catch((err) =>{
+            console.log(err)
         })
 
 })
