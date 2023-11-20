@@ -38,4 +38,11 @@ function route() {
         })
 }
 
+
+document.querySelector('#btn-logout-header').addEventListener('click', logOut)
+function logOut() {
+    localStorage.removeItem('jwtToken')
+}
+
+
 route()
