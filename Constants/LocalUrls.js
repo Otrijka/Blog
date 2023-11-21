@@ -1,0 +1,5 @@
+export const MAIN_PAGE = '/'
+export const REGISTRATION_PAGE = '/registration'
+export const LOGIN_PAGE = '/login'
+export const PROFILE_PAGE = '/profile'
+export const AUTHORS_PAGE = '/authors'
