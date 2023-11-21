@@ -4,7 +4,6 @@ let inputBirthDate = document.querySelector('#profile-date')
 let inputPhoneNumber = document.querySelector('#profile-phone')
 let inputGender = document.querySelector('#profile-gender')
 let defaultEmailErrorMessage = document.querySelector('#invalid-email').innerHTML
-
 fetch('https://blog.kreosoft.space/api/account/profile', {
     method: 'GET',
     headers: {
@@ -17,10 +16,9 @@ fetch('https://blog.kreosoft.space/api/account/profile', {
     }
     return response.json()
 }).then((data) => {
-    console.log(data)
     inputEmail.value = data.email
     inputFullName.value = data.fullName
-    inputBirthDate.value = (data.birthDate != null) ? data.birthDate.substring(0,10) : ''
+    inputBirthDate.value = (data.birthDate != null) ? data.birthDate.substring(0, 10) : ''
     inputPhoneNumber.value = data.phoneNumber
     inputGender.value = data.gender
 })
@@ -28,7 +26,7 @@ fetch('https://blog.kreosoft.space/api/account/profile', {
         console.log(error)
     })
 
-document.querySelector('#btn-profile-save').addEventListener('click', () =>{
+document.querySelector('#btn-profile-save').addEventListener('click', () => {
 
     let model = new UserProfileModel()
     model.email = inputEmail.value
@@ -45,7 +43,6 @@ document.querySelector('#btn-profile-save').addEventListener('click', () =>{
     inputGender.classList.remove('is-invalid')
 
     let validateResult = model.IsValid()
-
     if (Object.values(validateResult).some(value => value === false)) {
         if (validateResult.fullName === false) {
             inputFullName.classList.add('is-invalid')
@@ -73,13 +70,14 @@ document.querySelector('#btn-profile-save').addEventListener('click', () =>{
         },
         body: JSON.stringify(model)
     }).then((response) => {
-        if (response.status === 400){
+        if (response.status === 400) {
             document.querySelector('#profile-email').classList.add('is-invalid')
             document.querySelector('#invalid-email').innerHTML = 'Этот email уже используется'
-            throw new Error('Error' + response.statusText)
+            //throw new Error('Error' + response.statusText)
         }
         window.location.href = '/'
-    }).catch((error)=>{
-        console.log(error)
     })
+        .catch((error) => {
+            console.log(error)
+        })
 })

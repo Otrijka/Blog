@@ -1,5 +1,5 @@
 let MAX_LETTERS_ON_DESCRIPTION = 200
-let CURRENT_PAGE_SIZE = 5
+let CURRENT_PAGE_SIZE = document.querySelector('#page-post-size').value
 let CURRENT_PAGE = 1
 let CURRENT_PAGE_COUNT
 
@@ -189,7 +189,7 @@ function drawPost(post) {
 }
 
 
-getPosts()
+getPosts(window.location.search)
 
 function getFiltersQuery(){
     filters = new PageFilters()
@@ -244,7 +244,7 @@ document.querySelector('#page-post-size').addEventListener('change', () => {
 })
 
 window.onload = () => {
-    window.history.pushState({}, '', window.location.origin)
+   // window.history.pushState({}, '', window.location.origin)
 }
 
 
