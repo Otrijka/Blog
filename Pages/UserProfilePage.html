@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="card mt-3 col-11 col-md-8 col-lg-6">
+        <div class="card-body">
+            <div class="row align-items-center mb-3">
+                <div class="col-12 col-md-3 me-auto">
+                    <label for="profile-email" class="col-form-label"><span style="color: red">*</span>Email</label>
+                </div>
+                <div class="col-12 col-md-8 ms-auto">
+                    <input type="email" id="profile-email" class="form-control">
+                    <div id="invalid-email" class="invalid-feedback">Неккоректный email</div>
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-12 col-md-3 me-auto">
+                    <label for="profile-name" class="col-form-label"><span style="color: red">*</span>ФИО</label>
+                </div>
+                <div class="col-12 col-md-8 ms-auto">
+                    <input type="text" id="profile-name" class="form-control" name="fullname">
+                    <div id="invalid-fullName" class="invalid-feedback">Фио должно быть не короче 1 символа и не
+                        полностью состоять из цифр
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-12 col-md-3 me-auto">
+                    <label for="profile-phone" class="col-form-label">Номер телефона</label>
+                </div>
+                <div class="col-12 col-md-8 ms-auto">
+                    <input type="tel" id="profile-phone" class="form-control">
+                    <div id="invalid-phone" class="invalid-feedback">Неккоректный номер телефона</div>
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-12 col-md-3 me-auto">
+                    <label for="profile-gender" class="col-form-label">Пол</label>
+                </div>
+                <div class="col-12 col-md-8 ms-auto">
+                    <select class="form-select" id="profile-gender">
+                        <option value="Male">Мужчина</option>
+                        <option value="Female">Женщина</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-12 col-md-3 me-auto">
+                    <label for="profile-date" class="col-form-label">Дата рождения</label>
+                </div>
+                <div class="col-12 col-md-8 ms-auto">
+                    <input type="date" id="profile-date" class="form-control">
+                    <div id="invalid-birthdate" class="invalid-feedback">Некорректная дата рождения</div>
+                </div>
+            </div>
+            <div class="row">
+                <button id="btn-profile-save" class="btn btn-primary col-12 col-md-3 ms-auto">Сохранить</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="../Scripts/Validators/AppValidator.js"></script>
+    <script src="../Models/UserProfileModel.js"></script>
+    <script src="../Scripts/Profile_logic.js"></script>
+</div>
+
