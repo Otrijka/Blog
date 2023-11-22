@@ -22,7 +22,11 @@ class LoginController {
             const response = await this.model.sendLoginData(loginData)
             if (response === 400) {
                 this.view.showServerError()
-            } else {
+            }
+            else if(response === 500){
+                console.log('InternalServerError')
+                }
+             else {
                 const token = response.token
                 setToken(token)
                 window.location.href = MAIN_PAGE

@@ -48,7 +48,7 @@ class ProfileModel {
     }
 
     validateNewData(data) {
-        return data.IsValid()
+        return data.isValid()
     }
 
 

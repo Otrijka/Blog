@@ -1,4 +1,4 @@
-import {AppValidator} from "../Scripts/Validators/AppValidator.js";
+import {AppValidator} from "../Functions/AppValidator.js";
 
 class UserProfileDto {
     email
@@ -16,7 +16,7 @@ class UserProfileDto {
 
     }
 
-    IsValid() {
+    isValid() {
         let validator = new AppValidator()
 
         return {

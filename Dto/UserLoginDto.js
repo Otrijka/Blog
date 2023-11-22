@@ -1,4 +1,4 @@
-import {AppValidator} from "../Scripts/Validators/AppValidator.js";
+import {AppValidator} from "../Functions/AppValidator.js";
 
 class UserLoginDto {
     email
