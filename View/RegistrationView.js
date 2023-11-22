@@ -45,7 +45,7 @@ class RegistrationView {
         this.inputFullName.classList.remove('is-invalid')
         this.inputPassword.classList.remove('is-invalid')
         this.inputEmail.classList.remove('is-invalid')
-        document.querySelector('#invalid-email').innerHTML = this.sdefaultEmailErrorMessage
+        document.querySelector('#invalid-email').innerHTML = this.defaultEmailErrorMessage
         this.inputBirthDate.classList.remove('is-invalid')
         this.inputPhoneNumber.classList.remove('is-invalid')
         this.inputGender.classList.remove('is-invalid')
