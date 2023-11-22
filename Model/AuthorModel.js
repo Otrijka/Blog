@@ -24,10 +24,10 @@ class AuthorModel {
             const data = (await response.json()).sort(compareAuthors)
             data.forEach((author, index) =>{
                 let newAuthor = new AuthorDto()
-                newAuthor.birthDate = author.birthDate
-                newAuthor.created = author.created
-                newAuthor.posts = author.posts
-                newAuthor.likes = author.likes
+                newAuthor.birthDate = author.birthDate.substring(0,10).split('-').reverse().join('.')
+                newAuthor.created = 'Cоздан: ' + author.created.substring(0,10).split('-').reverse().join('.')
+                newAuthor.posts = 'Постов: ' + author.posts
+                newAuthor.likes = 'Лайков: ' + author.likes
                 newAuthor.gender = author.gender
                 newAuthor.fullName = author.fullName
                 newAuthor.position = index + 1
