@@ -1,21 +1,8 @@
 import {PROFILE, LOGOUT} from "../Constants/ApiUrls.js";
+import {getToken} from "../Functions/functions.js";
 
 class PageModel {
-    token = localStorage.getItem('jwtToken')
-
-    async getPageHtml(pageName) {
-        try {
-            const response = await fetch(`../Pages/${pageName}.html`)
-            if (!response.ok) {
-                throw new Error(`Failed to fetch ${this.url}, status: ${response.status}`)
-            }
-            const html = await response.text()
-            return html
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
+    token = getToken()
     async checkToken() {
         try {
             const response = await fetch(PROFILE, {
@@ -44,9 +31,6 @@ class PageModel {
             if (!response.ok) {
                 throw new Error(`Failed to fetch ${response.status}`)
             }
-            const data = await response.json()
-            console.log(data)
-            localStorage.removeItem('jwtToken')
         } catch (error) {
             console.error(error)
         }

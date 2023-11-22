@@ -1,6 +1,8 @@
 import {PageModel} from '../Model/PageModel.js'
 import {PageView} from '../View/PageView.js'
 import {MAIN_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, PROFILE_PAGE, AUTHORS_PAGE} from "../Constants/LocalUrls.js";
+import {getPageHtml} from "../Functions/functions.js";
+
 
 class PageController {
     model
@@ -35,7 +37,7 @@ class PageController {
                 pageName = 'NotFoundPage'
                 break
         }
-        const html = await this.model.getPageHtml(pageName)
+        const html = await getPageHtml(pageName)
         const userEmail = await this.model.checkToken()
         this.view.renderPage(html,userEmail)
     }
@@ -44,6 +46,7 @@ class PageController {
         await this.model.logoutUser()
         window.location.pathname = LOGIN_PAGE
     }
+
 }
 
 export {PageController}

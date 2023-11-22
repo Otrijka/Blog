@@ -1,3 +1,5 @@
+import {UserLoginModel} from "../Models/UserLoginModel.js";
+
 let inputEmail = document.querySelector('#email')
 let inputPassword = document.querySelector('#password')
 
