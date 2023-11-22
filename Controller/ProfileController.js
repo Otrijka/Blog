@@ -26,7 +26,7 @@ class ProfileController {
                 this.view.showErrors(validateResult)
                 throw new Error(`Invalid data ${validateResult}`)
             }else{
-                let response = await this.model.updateUserProfileData(newData)
+                let response = await this.model.sendUserProfileData(newData)
                 if (response === 400){
                     return this.view.showUsedEmail()
                 }

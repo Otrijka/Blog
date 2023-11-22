@@ -28,7 +28,7 @@ class ProfileModel {
         }
     }
 
-    async updateUserProfileData(newModel) {
+    async sendUserProfileData(data) {
         try {
             const response = await fetch(PROFILE, {
                 method: "PUT",
@@ -36,7 +36,7 @@ class ProfileModel {
                     "Content-type": "application/json",
                     "Authorization": `Bearer ${this.token}`
                 },
-                body: JSON.stringify(newModel)
+                body: JSON.stringify(data)
             })
             if (!response.ok) {
                 return response.status
@@ -47,8 +47,8 @@ class ProfileModel {
         }
     }
 
-    validateNewData(newModel) {
-        return newModel.IsValid()
+    validateNewData(data) {
+        return data.IsValid()
     }
 
 
