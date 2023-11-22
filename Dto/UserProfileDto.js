@@ -1,18 +1,18 @@
 import {AppValidator} from "../Scripts/Validators/AppValidator.js";
 
 class UserProfileDto {
-    fullName
     email
-    birthDate
-    gender
+    fullName
     phoneNumber
-    
-    constructor(fullName,email,birthDate,gender,phoneNumber) {
-        this.fullName = fullName;
+    gender
+    birthDate
+
+    constructor(email,fullName,phoneNumber,gender,birthDate) {
         this.email = email;
-        this.birthDate = birthDate;
-        this.gender = gender;
+        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.birthDate = birthDate;
 
     }
 

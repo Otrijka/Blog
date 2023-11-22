@@ -17,11 +17,11 @@ class ProfileModel {
             }
             const data = await response.json()
             return new UserProfileDto(
+                data.email,
                 data.fullName,
                 data.phoneNumber,
-                data.email,
                 data.gender,
-                data.birthDate
+                data.birthDate,
             )
         } catch (error) {
             console.error(error)
