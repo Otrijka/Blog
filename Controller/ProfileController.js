@@ -1,6 +1,6 @@
 import {ProfileView} from "../View/ProfileView.js";
 import {ProfileModel} from "../Model/ProfileModel.js";
-import {MAIN_PAGE} from "../Constants/LocalUrls.js";
+import {MAIN_PAGE} from "../Constants/dimens.js";
 
 class ProfileController {
     model

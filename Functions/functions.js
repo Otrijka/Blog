@@ -41,3 +41,35 @@ export function compareAuthors(a, b) {
     }
     return 0;
 }
+
+export function buildQuery(filters) {
+    let query = '?'
+    const queryParts = []
+
+    for (const key in this) {
+        if (this[key] !== undefined && this[key] !== "") {
+            const value = this[key]
+
+            if (Array.isArray(value)) {
+                value.forEach(item => {
+                    queryParts.push(`${key}=${item}`)
+                })
+            } else {
+                queryParts.push(`${key}=${value}`)
+            }
+        }
+    }
+    query += queryParts.join('&')
+    return query
+}
+
+export function isImageValid(url, callback) {
+    let img = new Image();
+    img.onload = function () {
+        callback(true);
+    };
+    img.onerror = function () {
+        callback(false);
+    };
+    img.src = url;
+}

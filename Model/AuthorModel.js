@@ -9,7 +9,7 @@ import {
     MAN_SILVER, WOMAN, WOMAN_BRONZE,
     WOMAN_GOLD,
     WOMAN_SILVER
-} from "../Constants/LocalUrls.js";
+} from "../Constants/dimens.js";
 
 class AuthorModel {
     async getAuthors() {

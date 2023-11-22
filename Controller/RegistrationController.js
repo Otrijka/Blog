@@ -1,7 +1,7 @@
 import {RegistrationModel} from "../Model/RegistrationModel.js";
 import {RegistrationView} from "../View/RegistrationView.js";
 import {setToken} from "../Functions/functions.js";
-import {MAIN_PAGE} from "../Constants/LocalUrls.js";
+import {MAIN_PAGE} from "../Constants/dimens.js";
 
 class RegistrationController {
     model

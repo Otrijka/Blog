@@ -10,6 +10,7 @@ export const AUTHORS_PAGE = '/authors'
 //Templates
 
 export const AUTHOR_TEMPLATE = 'Templates/AuthorTemplate'
+export const POST_TEMPLATE = 'Templates/PostTemplate'
 
 //Images
 
@@ -26,3 +27,8 @@ export const WOMAN_BRONZE = '../Images/Woman/woman-bronze.svg'
 
 export const MALE = 'Male'
 export const FEMALE = 'Female'
+
+// MENU
+
+export const MAX_LETTERS_ON_DESCRIPTION = 200
+export const CURRENT_PAGE_SIZE = 5

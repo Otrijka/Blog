@@ -1,7 +1,7 @@
 import {LoginModel} from "../Model/LoginModel.js";
 import {LoginView} from "../View/LoginView.js";
 import {setToken} from "../Functions/functions.js";
-import {MAIN_PAGE} from "../Constants/LocalUrls.js";
+import {MAIN_PAGE} from "../Constants/dimens.js";
 
 class LoginController {
     model

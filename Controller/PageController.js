@@ -1,6 +1,6 @@
 import {PageModel} from '../Model/PageModel.js'
 import {PageView} from '../View/PageView.js'
-import {MAIN_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, PROFILE_PAGE, AUTHORS_PAGE} from "../Constants/LocalUrls.js";
+import {MAIN_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, PROFILE_PAGE, AUTHORS_PAGE} from "../Constants/dimens.js";
 import {getPageHtml} from "../Functions/functions.js";
 
 
