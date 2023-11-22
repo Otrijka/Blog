@@ -6,6 +6,15 @@ class UserProfileDto {
     birthDate
     gender
     phoneNumber
+    
+    constructor(fullName,email,birthDate,gender,phoneNumber) {
+        this.fullName = fullName;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+
+    }
 
     IsValid() {
         let validator = new AppValidator()

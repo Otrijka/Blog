@@ -16,13 +16,13 @@ class ProfileModel {
                 throw new Error(`Failed to fetch ${response.status}`)
             }
             const data = await response.json()
-            let model = new UserProfileDto()
-            model.fullName = data.fullName
-            model.phoneNumber = data.phoneNumber
-            model.email = data.email
-            model.gender = data.gender
-            model.birthDate = data.birthDate
-            return model
+            return new UserProfileDto(
+                data.fullName,
+                data.phoneNumber,
+                data.email,
+                data.gender,
+                data.birthDate
+            )
         } catch (error) {
             console.error(error)
         }
