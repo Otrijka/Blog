@@ -17,23 +17,23 @@ class MenuView{
     }
     renderPosts(template,posts){
         this.postsContainer.innerHTML = ''
-        posts.forEach(post =>{
+        posts.forEach(post => {
             let cardTemplate = document.createElement('div')
             cardTemplate.innerHTML = template.trim()
             cardTemplate.querySelector('#post-template-author').textContent = post.author
             cardTemplate.querySelector('#post-template-title').textContent = post.title
 
             let descriptionHolder = cardTemplate.querySelector('#post-template-description')
+
+
             let showedLetters = 0
-            let paragraphs = post.description.split(/\r\n\r\n/)
+            let words = post.description.split(' ')
             let iterator = 0;
-            while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < paragraphs.length) {
-                let newParagraph = document.createElement('p')
-                newParagraph.textContent = paragraphs[iterator]
-                descriptionHolder.appendChild(newParagraph)
-                showedLetters += paragraphs[iterator].length
+            while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
+                descriptionHolder.innerHTML += words[iterator] + ' '
+                showedLetters += words[iterator].length
                 iterator++
-                if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < paragraphs.length) {
+                if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
                     let readMoreBtn = document.createElement('button')
                     readMoreBtn.classList.add('btn')
                     readMoreBtn.classList.add('btn-link')
@@ -42,14 +42,13 @@ class MenuView{
                     descriptionHolder.appendChild(readMoreBtn)
                     readMoreBtn.onclick = () => {
                         descriptionHolder.removeChild(readMoreBtn)
-                        while (iterator < paragraphs.length) {
-                            let newParagraph = document.createElement('p')
-                            newParagraph.textContent = paragraphs[iterator]
-                            descriptionHolder.appendChild(newParagraph)
+                        while (iterator < words.length) {
+                            descriptionHolder.innerHTML += words[iterator] + ' '
                             iterator++
                         }
                     }
                 }
+
             }
 
             cardTemplate.querySelector('#post-template-date').textContent = post.date

@@ -73,3 +73,11 @@ export function isImageValid(url, callback) {
     };
     img.src = url;
 }
+
+
+export function smoothScrollToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}

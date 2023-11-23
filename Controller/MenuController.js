@@ -1,5 +1,6 @@
 import {MenuModel} from "../Model/MenuModel.js";
 import {MenuView} from "../View/MenuView.js";
+import {smoothScrollToTop} from "../Functions/functions.js";
 
 class MenuController {
     model
@@ -36,6 +37,7 @@ class MenuController {
         const posts = await this.model.getPosts(query)
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
         this.view.renderPosts(this.template,posts)
+        smoothScrollToTop()
     }
 
     async previousPage(){
@@ -45,6 +47,7 @@ class MenuController {
         const posts = await this.model.getPosts(query)
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
         this.view.renderPosts(this.template,posts)
+        smoothScrollToTop()
     }
 }
 

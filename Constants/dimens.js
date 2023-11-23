@@ -30,5 +30,5 @@ export const FEMALE = 'Female'
 
 // MENU
 
-export const MAX_LETTERS_ON_DESCRIPTION = 200
+export const MAX_LETTERS_ON_DESCRIPTION = 400
 export const CURRENT_PAGE_SIZE = 5
