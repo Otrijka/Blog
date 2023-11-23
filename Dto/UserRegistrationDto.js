@@ -1,12 +1,23 @@
-class UserRegisterModel {
+import {AppValidator} from "../Functions/AppValidator.js";
+
+class UserRegistrationDto {
     fullName
-    password
-    email
     birthDate
     gender
     phoneNumber
+    email
+    password
 
-    IsValid() {
+    constructor(fullName,birthDate, gender, phoneNumber, email, password) {
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber
+        this.email = email
+        this.password = password;
+    }
+
+    isValid() {
         let validator = new AppValidator()
 
         return {
@@ -19,3 +30,5 @@ class UserRegisterModel {
         }
     }
 }
+
+export {UserRegistrationDto}

@@ -1,11 +1,22 @@
-class UserProfileModel {
-    fullName
-    email
-    birthDate
-    gender
-    phoneNumber
+import {AppValidator} from "../Functions/AppValidator.js";
 
-    IsValid() {
+class UserProfileDto {
+    email
+    fullName
+    phoneNumber
+    gender
+    birthDate
+
+    constructor(email,fullName,phoneNumber,gender,birthDate) {
+        this.email = email;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.birthDate = birthDate;
+
+    }
+
+    isValid() {
         let validator = new AppValidator()
 
         return {
@@ -17,3 +28,5 @@ class UserProfileModel {
         }
     }
 }
+
+export {UserProfileDto}

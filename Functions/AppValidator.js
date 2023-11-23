@@ -1,4 +1,4 @@
- class AppValidator {
+ export class AppValidator {
 
 
     NameIsValid(name) {
