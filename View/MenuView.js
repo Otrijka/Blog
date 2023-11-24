@@ -83,7 +83,7 @@ class MenuView {
                     cardTemplate.querySelector('#post-template-like-icon').style.color = LIKE_COLOR
                     cardTemplate.querySelector('#post-template-likes-count').textContent = parseInt(cardTemplate.querySelector('#post-template-likes-count').textContent) + 1
                     try {
-                        const response = await fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
+                        const response = fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
                             method: method,
                             headers: {
                                 'Content-type': 'application/json',
@@ -98,7 +98,7 @@ class MenuView {
                     cardTemplate.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
                     cardTemplate.querySelector('#post-template-likes-count').textContent = parseInt(cardTemplate.querySelector('#post-template-likes-count').textContent) - 1
                     try {
-                        const response = await fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
+                        const response = fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
                             method: method,
                             headers: {
                                 'Content-type': 'application/json',
