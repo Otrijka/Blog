@@ -1,3 +1,5 @@
+import {PROFILE} from "../Constants/ApiUrls.js";
+
 export function getToken() {
     return window.localStorage.getItem('jwtToken')
 }
@@ -81,4 +83,22 @@ export function buildQuery(filters) {
     }
 
     return query.toString()
+}
+
+
+export async function checkToken(token) {
+    try {
+        const response = await fetch(PROFILE, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        if (!response.ok) {
+            throw new Error(`Failed to fetch ${response.status}`)
+        }
+        const userProfile = await response.json()
+        return userProfile.email
+    } catch (error) {
+        console.error(error)
+    }
 }

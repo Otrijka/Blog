@@ -35,3 +35,5 @@ export const CURRENT_PAGE_SIZE = 5
 
 export const GO_NEXT_PAGE = 'next'
 export const GO_PREVIOUS_PAGE = 'previous'
+
+export const LIKE_COLOR = 'red'
