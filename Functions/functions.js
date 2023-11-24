@@ -1,13 +1,13 @@
 export function getToken() {
-    return localStorage.getItem('jwtToken')
+    return window.localStorage.getItem('jwtToken')
 }
 
 export function setToken(token) {
-    return localStorage.setItem('jwtToken', token)
+    return window.localStorage.setItem('jwtToken', token)
 }
 
 export function removeToken() {
-    return localStorage.removeItem('jwtToken')
+    return window.localStorage.removeItem('jwtToken')
 }
 
 export async function getPageHtml(pageName, responseHandler) {

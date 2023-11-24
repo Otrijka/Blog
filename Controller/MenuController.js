@@ -1,6 +1,6 @@
 import {MenuModel} from "../Model/MenuModel.js";
 import {MenuView} from "../View/MenuView.js";
-import {buildQuery, smoothScrollToTop} from "../Functions/functions.js";
+import {buildQuery, getToken, smoothScrollToTop} from "../Functions/functions.js";
 import {GO_NEXT_PAGE, GO_PREVIOUS_PAGE} from "../Constants/dimens.js";
 
 class MenuController {
@@ -16,6 +16,8 @@ class MenuController {
 
 
     async init(){
+
+        this.view.renderBtnNewPost(getToken())
 
         this.view.renderTags(await this.model.getTags())
 
@@ -56,7 +58,6 @@ class MenuController {
 
         smoothScrollToTop()
     }
-
 
     async changePageSize(){
 

@@ -1,7 +1,7 @@
 import {PageModel} from '../Model/PageModel.js'
 import {PageView} from '../View/PageView.js'
 import {MAIN_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, PROFILE_PAGE, AUTHORS_PAGE} from "../Constants/dimens.js";
-import {getPageHtml} from "../Functions/functions.js";
+import {getPageHtml, removeToken} from "../Functions/functions.js";
 
 
 class PageController {
@@ -43,6 +43,7 @@ class PageController {
     }
 
     async logout(){
+        removeToken()
         await this.model.logoutUser()
         window.location.pathname = LOGIN_PAGE
     }

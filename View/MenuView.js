@@ -88,6 +88,15 @@ class MenuView {
         }
     }
 
+    renderBtnNewPost(token){
+        if (token === null){
+            document.querySelector('#btn-new-post').classList.add('d-none')
+        }else{
+            document.querySelector('#btn-new-post').classList.remove('d-none')
+            document.querySelector('#btn-new-post').classList.add('d-sm-block')
+        }
+    }
+
     renderFiltersValues(params) {
         params.tags.forEach(tagId =>{
             const  option = document.querySelector('#filter-tags').querySelector(`option[value="${tagId}"]`)
