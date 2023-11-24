@@ -1,4 +1,4 @@
-import {MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
+import {CURRENT_PAGE_SIZE, MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
 import {isImageValid} from "../Functions/functions.js";
 
 class MenuView {
@@ -88,6 +88,10 @@ class MenuView {
         }
     }
 
+    getPageSize(){
+        return document.querySelector('#filter-page-post-size').value
+    }
+
     renderBtnNewPost(token){
         if (token === null){
             document.querySelector('#btn-new-post').classList.add('d-none')
@@ -109,6 +113,7 @@ class MenuView {
         document.querySelector('#filter-max-reading-time').value = params.max
         document.querySelector('#filter-sorting-by').value = params.sorting
         document.querySelector('#filter-own-group').checked = params.onlyMyCommunities
+        document.querySelector('#filter-page-post-size').value = (params.size !== null) ? params.size : CURRENT_PAGE_SIZE
     }
 
 

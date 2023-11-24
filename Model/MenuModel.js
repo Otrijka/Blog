@@ -25,6 +25,7 @@ class MenuModel {
             max:query.get('max'),
             sorting:query.get('sorting'),
             onlyMyCommunities: (query.get('onlyMyCommunities') === 'true') ,
+            size: query.get('size')
         }
     }
     async getPosts(query) {
@@ -41,6 +42,7 @@ class MenuModel {
             console.log(data.pagination)
             this.currentPageCount = data.pagination.count
             this.currentPage = data.pagination.current
+            this.currentPageSize = data.pagination.size
 
             data.posts.forEach(post =>{
                 let newPost = new PostDto()

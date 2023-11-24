@@ -9,5 +9,5 @@ document.querySelector('#btn-login').addEventListener('click', async () =>{
 })
 
 document.querySelector('#btn-go-register').addEventListener('click', () =>{
-    window.location.href = REGISTRATION_PAGE
+    //window.location.href = REGISTRATION_PAGE
 })

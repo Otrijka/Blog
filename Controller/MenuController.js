@@ -15,7 +15,7 @@ class MenuController {
     }
 
 
-    async init(){
+    async init() {
 
         this.view.renderBtnNewPost(getToken())
 
@@ -28,39 +28,56 @@ class MenuController {
         const posts = await this.model.getPosts(this.currentQuery.toString())
 
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
-        this.view.renderPosts(this.template,posts)
+        this.view.renderPosts(this.template, posts)
     }
 
-    async useFilters(){
+    async useFilters() {
         this.model.currentPage = 1
 
         const query = buildQuery(this.view.getFiltersValues())
         this.currentQuery = query
         const posts = await this.model.getPosts(this.currentQuery)
         window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
-        this.view.renderPosts(this.template,posts)
+        this.view.renderPosts(this.template, posts)
     }
 
-    async switchPage(param){
+    async switchPage(param) {
 
         if (param === GO_NEXT_PAGE) {
             this.model.currentPage = this.model.currentPage < this.model.currentPageCount ? this.model.currentPage + 1 : this.model.currentPage
-        }else if (param === GO_PREVIOUS_PAGE){
+        } else if (param === GO_PREVIOUS_PAGE) {
             this.model.currentPage = this.model.currentPage > 1 ? this.model.currentPage - 1 : this.model.currentPage
         }
 
-        this.view.checkAndDisableBtn(this.model.currentPage,this.model.currentPageCount)
+        this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
         const query = buildQuery(this.view.getFiltersValues(this.model.currentPage))
         this.currentQuery = query
         const posts = await this.model.getPosts(this.currentQuery)
         window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
-        this.view.renderPosts(this.template,posts)
+        this.view.renderPosts(this.template, posts)
 
         smoothScrollToTop()
     }
 
-    async changePageSize(){
+    async changePageSize() {
+        // let page
+        // let newPageSize = this.view.getPageSize()
+        // if (this.model.currentPageSize > newPageSize) {
+        //     page = Math.floor(((this.model.currentPageSize * this.model.currentPage - Math.abs(this.model.currentPageSize - newPageSize)) / newPageSize))
+        //     page = (page < 1) ? 1 : page
+        // } else {
+        //     page = Math.ceil(this.model.currentPageSize * this.model.currentPage / newPageSize)
+        // }
 
+
+        const query = buildQuery(this.view.getFiltersValues())
+        this.currentQuery = query
+        const posts = await this.model.getPosts(this.currentQuery)
+        this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
+        window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
+        this.view.renderPosts(this.template, posts)
+
+        smoothScrollToTop()
     }
 }
 

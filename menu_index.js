@@ -18,6 +18,6 @@ document.querySelector('#btn-next-page').addEventListener('click', async () =>{
 })
 
 
-document.querySelector('#filter-page-post-size').addEventListener('change',  () =>{
-    menuController.changePageSize()
+document.querySelector('#filter-page-post-size').addEventListener('change',  async () =>{
+    await menuController.changePageSize()
 })
