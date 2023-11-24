@@ -1,12 +1,11 @@
 import {MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
-import {FiltersDto} from "../Dto/FiltersDto.js";
 import {isImageValid} from "../Functions/functions.js";
 
-class MenuView{
+class MenuView {
 
     postsContainer = document.querySelector('#posts-container')
 
-    renderTags(tags){
+    renderTags(tags) {
         let tagFilter = document.querySelector('#filter-tags')
         tags.forEach(tag => {
             let newOption = document.createElement('option')
@@ -15,7 +14,8 @@ class MenuView{
             tagFilter.add(newOption)
         })
     }
-    renderPosts(template,posts){
+
+    renderPosts(template, posts) {
         this.postsContainer.innerHTML = ''
         posts.forEach(post => {
             let cardTemplate = document.createElement('div')
@@ -73,26 +73,44 @@ class MenuView{
 
 
     }
-    getFiltersValues(){
-        let filters =  new FiltersDto()
-        filters.author = document.querySelector('#filter-author-name').value
-        filters.tags = Array.from(document.querySelector('#filter-tags').selectedOptions).map(option => option.value)
-        filters.min = document.querySelector('#filter-min-reading-time').value
-        filters.max = document.querySelector('#filter-max-reading-time').value
-        filters.sorting = document.querySelector('#filter-sorting-by').value
-        filters.onlyMyCommunities = document.querySelector('#filter-own-group').checked
-        filters.size = document.querySelector('#filter-page-post-size').value
-        return filters
+
+    getFiltersValues(page = 1) {
+        let tags = Array.from(document.querySelector('#filter-tags').selectedOptions).map(option => option.value)
+        return {
+            author: document.querySelector('#filter-author-name').value.trim(),
+            tags: tags.length > 0 ? tags : '',
+            min: document.querySelector('#filter-min-reading-time').value,
+            max: document.querySelector('#filter-max-reading-time').value,
+            sorting: document.querySelector('#filter-sorting-by').value,
+            onlyMyCommunities: (document.querySelector('#filter-own-group').checked === true) ? true : "",
+            size: document.querySelector('#filter-page-post-size').value,
+            page: page,
+        }
     }
 
-    checkAndDisableBtn(currentPage, pageCount){
+    renderFiltersValues(params) {
+        params.tags.forEach(tagId =>{
+            const  option = document.querySelector('#filter-tags').querySelector(`option[value="${tagId}"]`)
+            if (option){
+                option.selected = true
+            }
+        })
+        document.querySelector('#filter-author-name').value = params.author
+        document.querySelector('#filter-min-reading-time').value = params.min
+        document.querySelector('#filter-max-reading-time').value = params.max
+        document.querySelector('#filter-sorting-by').value = params.sorting
+        document.querySelector('#filter-own-group').checked = params.onlyMyCommunities
+    }
+
+
+    checkAndDisableBtn(currentPage, pageCount) {
         document.querySelector('#btn-next-page').disabled = false
         document.querySelector('#btn-prev-page').disabled = false
 
-        if (currentPage === 1){
+        if (currentPage === 1) {
             document.querySelector('#btn-prev-page').disabled = true
         }
-        if (currentPage === pageCount){
+        if (currentPage === pageCount) {
             document.querySelector('#btn-next-page').disabled = true
         }
     }

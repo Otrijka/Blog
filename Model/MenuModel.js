@@ -17,13 +17,23 @@ class MenuModel {
         }
     }
 
+    getFiltersValuesFromQuery(query){
+        return{
+            tags: query.getAll('tags'),
+            author : query.get('author'),
+            min: query.get('min'),
+            max:query.get('max'),
+            sorting:query.get('sorting'),
+            onlyMyCommunities: (query.get('onlyMyCommunities') === 'true') ,
+        }
+    }
     async getPosts(query) {
         try {
             console.log(query)
             let postList = []
             let url = POST
             if (undefined !== query) {
-                url += query
+                url += "?" + query
             }
 
             const response = await fetch(url)

@@ -42,26 +42,6 @@ export function compareAuthors(a, b) {
     return 0;
 }
 
-export function buildQuery(filters) {
-    let query = '?'
-    const queryParts = []
-
-    for (const key in this) {
-        if (this[key] !== undefined && this[key] !== "") {
-            const value = this[key]
-
-            if (Array.isArray(value)) {
-                value.forEach(item => {
-                    queryParts.push(`${key}=${item}`)
-                })
-            } else {
-                queryParts.push(`${key}=${value}`)
-            }
-        }
-    }
-    query += queryParts.join('&')
-    return query
-}
 
 export function isImageValid(url, callback) {
     let img = new Image();
@@ -78,6 +58,27 @@ export function isImageValid(url, callback) {
 export function smoothScrollToTop(){
     window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth"
     });
+}
+
+
+export function buildQuery(filters) {
+    let query = new URLSearchParams()
+
+    for (const param in filters) {
+        if (filters[param] !== "") {
+            const value = filters[param]
+
+            if (Array.isArray(value)) {
+                value.forEach(item => {
+                    query.append(param, item)
+                })
+            } else {
+                query.set(param, value)
+            }
+        }
+    }
+
+    return query.toString()
 }

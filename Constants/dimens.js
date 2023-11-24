@@ -28,7 +28,10 @@ export const WOMAN_BRONZE = '../Images/Woman/woman-bronze.svg'
 export const MALE = 'Male'
 export const FEMALE = 'Female'
 
-// MENU
+// Menu
 
 export const MAX_LETTERS_ON_DESCRIPTION = 400
 export const CURRENT_PAGE_SIZE = 5
+
+export const GO_NEXT_PAGE = 'next'
+export const GO_PREVIOUS_PAGE = 'previous'
