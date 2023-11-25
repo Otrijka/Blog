@@ -1,6 +1,13 @@
 import {PageModel} from '../Model/PageModel.js'
 import {PageView} from '../View/PageView.js'
-import {MAIN_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, PROFILE_PAGE, AUTHORS_PAGE} from "../Constants/dimens.js";
+import {
+    MAIN_PAGE,
+    LOGIN_PAGE,
+    REGISTRATION_PAGE,
+    PROFILE_PAGE,
+    AUTHORS_PAGE,
+    CREATE_POST_PAGE
+} from "../Constants/dimens.js";
 import {checkToken, getPageHtml, getToken, removeToken} from "../Functions/functions.js";
 
 
@@ -18,6 +25,9 @@ class PageController {
         let pageName
 
         switch (url) {
+            case CREATE_POST_PAGE:
+                pageName = 'CreatePostPage'
+                break;
             case REGISTRATION_PAGE:
                 pageName = 'RegistrationPage'
                 break;

@@ -3,7 +3,9 @@
 <div class="container-fluid h-100">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-12 col-md-10 col-lg-8">
-            <button id="btn-new-post" class="btn btn-primary col-12 col-md-2 mt-4 ms-auto">Написать пост</button>
+            <a href="/post/create">
+                <button id="btn-new-post" class="btn btn-primary col-12 col-md-2 mt-4 ms-auto">Написать пост</button>
+            </a>
             <div class="card mb-3 mt-3">
                 <button class="btn btn-secondary btn-sm d-md-none" type="button" data-bs-toggle="collapse"
                         data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
@@ -84,16 +86,16 @@
                     <div class="form-group mb-0">
                         <label class="form-label fs-6 mb-0" for="filter-page-post-size">Число постов на странице</label>
                         <select class="form-select" id="filter-page-post-size">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5" selected>5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
                         </select>
                     </div>
                 </div>
