@@ -7,3 +7,7 @@ document.querySelector('#create-post-btn-create').addEventListener('click', asyn
     await createPostController.createPost()
 
 })
+
+document.querySelector('#create-post-region').addEventListener('select2:select', async () =>{
+
+})

@@ -11,13 +11,22 @@ class CreatePostController {
     }
 
 
+    async continueAddressSearch(){
+        await this.model.getAddressChildren()
+    }
     async init(){
 
         const communities = await this.model.getAdminUsersCommunities()
         const tags = await this.model.getTags()
+        const startAddresses = await this.model.getAddressChildren()
 
+        this.view.renderNewAddresses('#create-post-region', startAddresses)
         this.view.renderTags(tags)
         this.view.renderCommunities(communities)
+
+        $(document).ready(function() {
+            $('#create-post-region').select2();
+        });
 
     }
 
