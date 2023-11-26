@@ -8,6 +8,11 @@ export const AUTHORS_PAGE = '/authors'
 export const CREATE_POST_PAGE = '/post/create'
 
 
+//Roles
+
+export const SUB = 'Subscriber'
+export const ADMIN = 'Administrator'
+
 //Templates
 
 export const AUTHOR_TEMPLATE = 'Templates/AuthorTemplate'

@@ -8,10 +8,12 @@
                     <div class="form-group col-12 col-md-9">
                         <label for="create-post-title">Название</label>
                         <input type="text" class="form-control" id="create-post-title">
+                        <div id="invalid-title" class="invalid-feedback">Название должно быть не меньше 5 символов</div>
                     </div>
                     <div class="form-group col-12 col-md-3">
                         <label for="create-post-readTime">Время чтения</label>
-                        <input type="text" class="form-control" id="create-post-readTime">
+                        <input type="number" min="0" class="form-control" id="create-post-readTime">
+                        <div id="invalid-readingTime" class="invalid-feedback">Неккоректное время чтения</div>
                     </div>
                 </div>
 
@@ -19,34 +21,32 @@
                     <div class="form-group col-12 col-md-6">
                         <label for="create-post-community">Группа</label>
                         <select type="text" class="form-control" id="create-post-community">
-                            <option value="0">Без группы</option>
-                            <option value="1">community1</option>
-                            <option value="2">community2</option>
-                            <option value="3">community3</option>
+                            <option value="">Без группы</option>
                         </select>
                     </div>
 
                     <div class="form-group col-12 col-md-6">
                         <label for="create-post-tags">Тэги</label>
                         <select multiple size="3" type="text" class="form-control" id="create-post-tags">
-                            <option value="1">tag1</option>
-                            <option value="2">tag2</option>
-                            <option value="3">tag3</option>
+
                         </select>
+                        <div id="invalid-tags" class="invalid-feedback">Необходимо выбрать хотя бы 1 тэг</div>
                     </div>
                 </div>
 
                 <div class="row  mb-3">
                     <div class="form-group">
                         <label for="create-post-image">Ссылка на картинку</label>
-                        <input type="url" class="form-control" id="create-post-image">
+                        <input type="text" class="form-control" id="create-post-image">
+                        <div id="invalid-image" class="invalid-feedback">Неккоректный url</div>
                     </div>
                 </div>
 
                 <div class="row  mb-3">
                     <div class="form-group">
                         <label for="create-post-description">Текст</label>
-                        <textarea type="text" class="form-control" rows="8" id="create-post-description">asdasd</textarea>
+                        <textarea type="text" minlength="5" class="form-control" rows="6" id="create-post-description"></textarea>
+                        <div id="invalid-description" class="invalid-feedback">Текст должен быть не меньше 5 символов</div>
                     </div>
                 </div>
 
@@ -55,16 +55,18 @@
                     <div class="form-group">
                         <label for="create-post-region">Субъект РФ</label>
                         <select type="text" class="form-control" rows="8" id="create-post-region">
-                            <option value="">region1</option>
-                            <option value="">region2</option>
-                            <option value="">region3</option>
+                            <option value="">Не выбрано</option>
+                            <option value="r1">region1</option>
+                            <option value="r2">region2</option>
+                            <option value="r3">region3</option>
                         </select>
                     </div>
                 </div>
                 <div class="row  mb-3">
-                    <button type="button" class="btn btn-primary col-12 col-md-2 ms-md-auto">Создать пост</button>
+                    <button type="click" id="create-post-btn-create" class="btn btn-primary col-12 col-md-2 ms-md-auto">Создать пост</button>
                 </div>
             </div>
         </div>
     </div>
+    <script type="module" src="/createPost_index.js"></script>
 </div>
