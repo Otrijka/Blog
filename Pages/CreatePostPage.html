@@ -1,3 +1,70 @@
-<div class="gagaga">
-    hello
+<div class="container h-100">
+    <div class="row justify-content-center align-items-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title fs-3">Написать новый пост</h5>
+
+                <div class="row mb-3">
+                    <div class="form-group col-12 col-md-9">
+                        <label for="create-post-title">Название</label>
+                        <input type="text" class="form-control" id="create-post-title">
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label for="create-post-readTime">Время чтения</label>
+                        <input type="text" class="form-control" id="create-post-readTime">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="form-group col-12 col-md-6">
+                        <label for="create-post-community">Группа</label>
+                        <select type="text" class="form-control" id="create-post-community">
+                            <option value="0">Без группы</option>
+                            <option value="1">community1</option>
+                            <option value="2">community2</option>
+                            <option value="3">community3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-12 col-md-6">
+                        <label for="create-post-tags">Тэги</label>
+                        <select multiple size="3" type="text" class="form-control" id="create-post-tags">
+                            <option value="1">tag1</option>
+                            <option value="2">tag2</option>
+                            <option value="3">tag3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row  mb-3">
+                    <div class="form-group">
+                        <label for="create-post-image">Ссылка на картинку</label>
+                        <input type="url" class="form-control" id="create-post-image">
+                    </div>
+                </div>
+
+                <div class="row  mb-3">
+                    <div class="form-group">
+                        <label for="create-post-description">Текст</label>
+                        <textarea type="text" class="form-control" rows="8" id="create-post-description">asdasd</textarea>
+                    </div>
+                </div>
+
+                <div class="row  mb-3">
+                    <h4 class="fs-4">Адрес</h4>
+                    <div class="form-group">
+                        <label for="create-post-region">Субъект РФ</label>
+                        <select type="text" class="form-control" rows="8" id="create-post-region">
+                            <option value="">region1</option>
+                            <option value="">region2</option>
+                            <option value="">region3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row  mb-3">
+                    <button type="button" class="btn btn-primary col-12 col-md-2 ms-md-auto">Создать пост</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
