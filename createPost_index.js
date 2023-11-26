@@ -8,6 +8,7 @@ document.querySelector('#create-post-btn-create').addEventListener('click', asyn
 
 })
 
-document.querySelector('#create-post-region').addEventListener('select2:select', async () =>{
 
+$(document).ready(function() {
+    $('#create-post-region').select2();
 })
