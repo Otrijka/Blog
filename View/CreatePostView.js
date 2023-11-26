@@ -40,13 +40,6 @@ class CreatePostView {
         )
     }
 
-
-    renderNewAddresses(id,data){
-        $(id).select2({
-            data: data,
-        });
-    }
-
     showErrors(validateResult){
         if (validateResult.title === false){
             this.inputTitle.classList.add('is-invalid')

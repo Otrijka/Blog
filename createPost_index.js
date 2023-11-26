@@ -7,8 +7,3 @@ document.querySelector('#create-post-btn-create').addEventListener('click', asyn
     await createPostController.createPost()
 
 })
-
-
-$(document).ready(function() {
-    $('#create-post-region').select2();
-})

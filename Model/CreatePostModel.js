@@ -1,21 +1,9 @@
-import {ADDRESS_CHILDREN, COMMUNITY_ID, COMMUNITY_MY, POST, TAG} from "../Constants/ApiUrls.js";
+import {COMMUNITY_ID, COMMUNITY_MY, POST, TAG} from "../Constants/ApiUrls.js";
 import {getToken} from "../Functions/functions.js";
 import {ADMIN} from "../Constants/dimens.js";
 
 class CreatePostModel {
 
-    async getAddressChildren(parentId = 0,query = undefined)
-    {
-        let url = (query === undefined) ? ADDRESS_CHILDREN+parentId : ADDRESS_CHILDREN+parentId+'&query='+query
-        try {
-            const response = await fetch(url)
-            const data = await response.json()
-            console.log(data.map(item => ({objectGuid: item.objectGuid, text: item.text})))
-            return data.map(item => ({objectGuid: item.objectGuid, text: item.text}))
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
     async getAdminUsersCommunities() {
         let userCommunities = []

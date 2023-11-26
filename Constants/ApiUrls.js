@@ -7,10 +7,6 @@ export const PROFILE = 'https://blog.kreosoft.space/api/account/profile'
 //Tag
 export const TAG = 'https://blog.kreosoft.space/api/tag'
 
-//Address
-
-export const ADDRESS_CHILDREN = 'https://blog.kreosoft.space/api/address/search?parentObjectId='
-
 //POST
 export const POST = 'https://blog.kreosoft.space/api/post'
 export const POST_ID = 'https://blog.kreosoft.space/api/post/'
