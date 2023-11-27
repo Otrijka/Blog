@@ -45,25 +45,42 @@
                 <div class="row  mb-3">
                     <div class="form-group">
                         <label for="create-post-description">Текст</label>
-                        <textarea type="text" minlength="5" class="form-control" rows="6" id="create-post-description"></textarea>
-                        <div id="invalid-description" class="invalid-feedback">Текст должен быть не меньше 5 символов</div>
+                        <textarea type="text" minlength="5" class="form-control" rows="6"
+                                  id="create-post-description"></textarea>
+                        <div id="invalid-description" class="invalid-feedback">Текст должен быть не меньше 5 символов
+                        </div>
                     </div>
                 </div>
 
-                <div class="row  mb-3">
+                <div class="row mb-3" id="create-post-address-handler">
                     <h4 class="fs-4">Адрес</h4>
-                    <div class="form-group">
-                        <label for="create-post-region">Субъект РФ</label>
-                        <select type="text" class="form-control" rows="8" id="create-post-region">
-                            <option value="">Не выбрано</option>
-                            <option value="r1">region1</option>
-                            <option value="r2">region2</option>
-                            <option value="r3">region3</option>
+
+                    <div class="form-group mb-2" id="create-post-address-region">
+                        <label for="create-post-region-select" class="mb-1">Субъект РФ</label>
+                        <select type="text" class="form-control d-block" id="create-post-region-select">
                         </select>
                     </div>
+                    <div class="form-group mb-2 d-none" id="create-post-address-city">
+                        <label for="create-post-city-select" class="mb-1">Город</label>
+                        <select type="text" class="form-control d-block" id="create-post-city-select">
+                        </select>
+                    </div>
+                    <div class="form-group mb-2 d-none" id="create-post-address-street">
+                        <label for="create-post-street-select" class="mb-1">Улица</label>
+                        <select type="text" class="form-control d-block" id="create-post-street-select">
+                        </select>
+                    </div>
+                    <div class="form-group mb-2 d-none" id="create-post-address-building">
+                        <label for="create-post-building-select" class="mb-1">Дом</label>
+                        <select type="text" class="form-control d-block" id="create-post-building-select">
+                        </select>
+                    </div>
+
                 </div>
                 <div class="row  mb-3">
-                    <button type="click" id="create-post-btn-create" class="btn btn-primary col-12 col-md-2 ms-md-auto">Создать пост</button>
+                    <button type="click" id="create-post-btn-create" class="btn btn-primary col-12 col-md-2 ms-md-auto">
+                        Создать пост
+                    </button>
                 </div>
             </div>
         </div>

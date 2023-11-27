@@ -3,8 +3,6 @@ import {getToken} from "../Functions/functions.js";
 import {ADMIN} from "../Constants/dimens.js";
 
 class CreatePostModel {
-
-
     async getAdminUsersCommunities() {
         let userCommunities = []
         try {
