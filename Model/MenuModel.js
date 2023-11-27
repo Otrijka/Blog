@@ -1,6 +1,6 @@
 import {POST, TAG} from "../Constants/ApiUrls.js";
 import {PostDto} from "../Dto/PostDto.js";
-import {getPageHtml} from "../Functions/functions.js";
+import {getPageHtml, getToken} from "../Functions/functions.js";
 import {CURRENT_PAGE_SIZE, POST_TEMPLATE} from "../Constants/dimens.js";
 
 class MenuModel {
@@ -17,14 +17,14 @@ class MenuModel {
         }
     }
 
-    getFiltersValuesFromQuery(query){
-        return{
+    getFiltersValuesFromQuery(query) {
+        return {
             tags: query.getAll('tags'),
-            author : query.get('author'),
+            author: query.get('author'),
             min: query.get('min'),
-            max:query.get('max'),
-            sorting:query.get('sorting'),
-            onlyMyCommunities: (query.get('onlyMyCommunities') === 'true') ,
+            max: query.get('max'),
+            sorting: query.get('sorting'),
+            onlyMyCommunities: (query.get('onlyMyCommunities') === 'true'),
             size: query.get('size')
         }
     }
@@ -37,14 +37,18 @@ class MenuModel {
                 url += "?" + query
             }
 
-            const response = await fetch(url)
+            const response = await fetch(url, {
+                headers:{
+                    'Authorization' : "Bearer " + getToken()
+                }
+            })
             const data = await response.json()
-            console.log(data.pagination)
+            console.log(data)
             this.currentPageCount = data.pagination.count
             this.currentPage = data.pagination.current
             this.currentPageSize = data.pagination.size
 
-            data.posts.forEach(post =>{
+            data.posts.forEach(post => {
                 let newPost = new PostDto()
                 newPost.title = post.title
                 newPost.description = post.description
@@ -59,6 +63,7 @@ class MenuModel {
                 newPost.hasLike = post.hasLike
                 newPost.commentsCount = post.commentsCount
                 newPost.tags = post.tags
+                newPost.id = post.id
                 postList.push(newPost)
             })
             return postList
@@ -66,12 +71,12 @@ class MenuModel {
         } catch (error) {
             console.error(error)
         }
-
-
     }
 
-    async getPostTemplate(){
-         return await getPageHtml(POST_TEMPLATE)
+
+
+    async getPostTemplate() {
+        return await getPageHtml(POST_TEMPLATE)
     }
 }
 

@@ -1,5 +1,6 @@
-import {CURRENT_PAGE_SIZE, MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
-import {isImageValid} from "../Functions/functions.js";
+import {CURRENT_PAGE_SIZE, LIKE_COLOR, MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
+import {checkToken, getToken, isImageValid} from "../Functions/functions.js";
+import {POST} from "../Constants/ApiUrls.js";
 
 class MenuView {
 
@@ -22,6 +23,21 @@ class MenuView {
             cardTemplate.innerHTML = template.trim()
             cardTemplate.querySelector('#post-template-author').textContent = post.author
             cardTemplate.querySelector('#post-template-title').textContent = post.title
+            cardTemplate.querySelector('#post-template-title').setAttribute('data-id', post.id)
+
+            if (post.hasLike) {
+                cardTemplate.querySelector("#post-template-like-icon").classList.add('bi-heart-fill')
+                cardTemplate.querySelector("#post-template-like-icon").style.color = LIKE_COLOR
+            } else {
+                cardTemplate.querySelector("#post-template-like-icon").classList.add('bi-heart')
+            }
+
+            if (post.commentsCount > 0) {
+                cardTemplate.querySelector("#post-template-comments-icon").classList.add('bi-chat-left-fill')
+            } else {
+                cardTemplate.querySelector("#post-template-comments-icon").classList.add('bi-chat-left')
+            }
+
 
             let descriptionHolder = cardTemplate.querySelector('#post-template-description')
 
@@ -52,10 +68,49 @@ class MenuView {
             }
 
             cardTemplate.querySelector('#post-template-date').textContent = post.date
-            cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
+            cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
             cardTemplate.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
+            cardTemplate.querySelector('#post-template-like-icon').addEventListener('click', async ()=>{
+                if (await checkToken(getToken()) === undefined){
+                    console.log('Denied like UnAuthorized')
+                    return
+                }
+                let method = (cardTemplate.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
+                if (method === 'POST'){
+                    cardTemplate.querySelector('#post-template-like-icon').classList.replace('bi-heart', 'bi-heart-fill')
+                    cardTemplate.querySelector('#post-template-like-icon').style.color = LIKE_COLOR
+                    cardTemplate.querySelector('#post-template-likes-count').textContent = parseInt(cardTemplate.querySelector('#post-template-likes-count').textContent) + 1
+                    try {
+                        const response = fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
+                            method: method,
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': 'Bearer ' + getToken()
+                            }
+                        })
+                    } catch (error) {
+                        console.error(error)
+                    }
+                }else{
+                    cardTemplate.querySelector('#post-template-like-icon').style.color = ''
+                    cardTemplate.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
+                    cardTemplate.querySelector('#post-template-likes-count').textContent = parseInt(cardTemplate.querySelector('#post-template-likes-count').textContent) - 1
+                    try {
+                        const response = fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
+                            method: method,
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': 'Bearer ' + getToken()
+                            }
+                        })
+                    } catch (error) {
+                        console.error(error)
+                    }
+                }
+            })
+
 
             isImageValid(post.image, (isValid) => {
                 if (isValid) {
@@ -88,23 +143,23 @@ class MenuView {
         }
     }
 
-    getPageSize(){
+    getPageSize() {
         return document.querySelector('#filter-page-post-size').value
     }
 
-    renderBtnNewPost(token){
-        if (token === null){
+    renderBtnNewPost(token) {
+        if (token === null) {
             document.querySelector('#btn-new-post').classList.add('d-none')
-        }else{
+        } else {
             document.querySelector('#btn-new-post').classList.remove('d-none')
             document.querySelector('#btn-new-post').classList.add('d-sm-block')
         }
     }
 
     renderFiltersValues(params) {
-        params.tags.forEach(tagId =>{
-            const  option = document.querySelector('#filter-tags').querySelector(`option[value="${tagId}"]`)
-            if (option){
+        params.tags.forEach(tagId => {
+            const option = document.querySelector('#filter-tags').querySelector(`option[value="${tagId}"]`)
+            if (option) {
                 option.selected = true
             }
         })
@@ -128,6 +183,50 @@ class MenuView {
             document.querySelector('#btn-next-page').disabled = true
         }
     }
+
+    async addLike(postId) {
+        if (await checkToken(getToken()) === undefined){
+            console.log('Denied like UnAuthorized')
+            return
+        }
+        let method = (document.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
+        if (method === 'POST'){
+            document.querySelector('#post-template-like-icon').classList.replace('bi-heart', 'bi-heart-fill')
+            document.querySelector('#post-template-like-icon').style.color = LIKE_COLOR
+            let count = parseInt(document.querySelector('#post-template-likes-count').textContent) + 1
+            document.querySelector('#post-template-likes-count').textContent = count
+            try {
+                const response = await fetch(`https://blog.kreosoft.space/api/post/${postId}/like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken()
+                    }
+                })
+            } catch (error) {
+                console.error(error)
+            }
+        }else{
+            document.querySelector('#post-template-like-icon').style.color = ''
+            document.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
+            let count = parseInt(document.querySelector('#post-template-likes-count').textContent) - 1
+            document.querySelector('#post-template-likes-count').textContent = count
+            try {
+                const response = await fetch(`https://blog.kreosoft.space/api/post/${postId}/like`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken()
+                    }
+                })
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+
+    }
+
 }
 
 export {MenuView}

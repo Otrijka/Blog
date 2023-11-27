@@ -37,4 +37,21 @@
         }
         return ['Male','Female'].includes(gender)
     }
+
+    TitleDescriptionIsValid(text){
+        return text.length >= 5
+    }
+
+    ReadingTimeIsValid(time){
+        return parseInt(time) >= 0
+    }
+
+    UrlIsValid(url){
+
+        return true
+    }
+
+    TagsIsValid(tags){
+        return tags.length > 0
+    }
 }
