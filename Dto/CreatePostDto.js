@@ -10,13 +10,12 @@ class CreatePostDto {
     addressId = undefined
     tags = []
     
-    constructor(title, description, readingTime, image, communityId, addressId, tags) {
+    constructor(title, description, readingTime, image, communityId, tags) {
         this.title = title;
         this.description = description;
         this.readingTime = readingTime;
         this.image = image;
         this.communityId = communityId;
-        this.addressId = addressId;
         this.tags = tags;
     }
     isValid(){
