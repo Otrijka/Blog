@@ -113,3 +113,17 @@ export async function checkToken(token) {
 export function normalizeDate(date){
     return date.substring(0,10).split('-').reverse().join('.')
 }
+
+export function normalizeDateTime(inputDateTime) {
+    const dateTime = new Date(inputDateTime);
+
+    const day = dateTime.getDate().toString().padStart(2, '0');
+    const month = (dateTime.getMonth() + 1).toString().padStart(2, '0');
+    const year = dateTime.getFullYear();
+    const hours = dateTime.getHours().toString().padStart(2, '0');
+    const minutes = dateTime.getMinutes().toString().padStart(2, '0');
+
+    const formattedDateTime = `${day}.${month}.${year} ${hours}:${minutes}`;
+
+    return formattedDateTime;
+}
