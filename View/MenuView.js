@@ -39,18 +39,18 @@ class MenuView {
                 cardTemplate.querySelector("#post-template-comments-icon").classList.add('bi-chat-left')
             }
 
+            normalizeDescription(post.description)
 
-            let descriptionHolder = cardTemplate.querySelector('#post-template-description')
-
-
-            let showedLetters = 0
-            let words = post.description.split(' ')
-            let iterator = 0;
-            while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
-                descriptionHolder.innerHTML += words[iterator] + ' '
-                showedLetters += words[iterator].length
-                iterator++
-                if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
+            function normalizeDescription(text) {
+                let descriptionHolder = cardTemplate.querySelector('#post-template-description')
+                let showedLetters = 0
+                let words = post.description.replace(/\n/g, ' <br> ').split(' ')
+                let iterator = 0;
+                if (words.length === 1 && words[0].length > MAX_LETTERS_ON_DESCRIPTION) {
+                    let newWords = []
+                    newWords.push(words[0].substring(0, MAX_LETTERS_ON_DESCRIPTION))
+                    newWords.push(words[0].substring(MAX_LETTERS_ON_DESCRIPTION, words[0].length - 1))
+                    descriptionHolder.innerHTML = newWords[0]
                     let readMoreBtn = document.createElement('button')
                     readMoreBtn.classList.add('btn')
                     readMoreBtn.classList.add('btn-link')
@@ -59,26 +59,45 @@ class MenuView {
                     descriptionHolder.appendChild(readMoreBtn)
                     readMoreBtn.onclick = () => {
                         descriptionHolder.removeChild(readMoreBtn)
-                        while (iterator < words.length) {
-                            descriptionHolder.innerHTML += words[iterator] + ' '
-                            iterator++
+                        descriptionHolder.innerHTML += newWords[1]
+                    }
+                } else {
+                    while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
+                        descriptionHolder.innerHTML += words[iterator] + ' '
+                        showedLetters += words[iterator].length
+                        iterator++
+                        if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
+
+                            let readMoreBtn = document.createElement('button')
+                            readMoreBtn.classList.add('btn')
+                            readMoreBtn.classList.add('btn-link')
+                            readMoreBtn.textContent = 'Читать далее'
+                            readMoreBtn.style.display = 'block'
+                            descriptionHolder.appendChild(readMoreBtn)
+                            readMoreBtn.onclick = () => {
+                                descriptionHolder.removeChild(readMoreBtn)
+                                while (iterator < words.length) {
+                                    descriptionHolder.innerHTML += words[iterator] + ' '
+                                    iterator++
+                                }
+                            }
                         }
+
                     }
                 }
-
             }
 
             cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
             cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
             cardTemplate.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
-            cardTemplate.querySelector('#post-template-like-icon').addEventListener('click', async ()=>{
-                if (await checkToken(getToken()) === undefined){
+            cardTemplate.querySelector('#post-template-like-icon').addEventListener('click', async () => {
+                if (await checkToken(getToken()) === undefined) {
                     console.log('Denied like UnAuthorized')
                     return
                 }
                 let method = (cardTemplate.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
-                if (method === 'POST'){
+                if (method === 'POST') {
                     cardTemplate.querySelector('#post-template-like-icon').classList.replace('bi-heart', 'bi-heart-fill')
                     cardTemplate.querySelector('#post-template-like-icon').style.color = LIKE_COLOR
                     cardTemplate.querySelector('#post-template-likes-count').textContent = parseInt(cardTemplate.querySelector('#post-template-likes-count').textContent) + 1
@@ -93,7 +112,7 @@ class MenuView {
                     } catch (error) {
                         console.error(error)
                     }
-                }else{
+                } else {
                     cardTemplate.querySelector('#post-template-like-icon').style.color = ''
                     cardTemplate.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
                     cardTemplate.querySelector('#post-template-likes-count').textContent = parseInt(cardTemplate.querySelector('#post-template-likes-count').textContent) - 1
@@ -185,12 +204,12 @@ class MenuView {
     }
 
     async addLike(postId) {
-        if (await checkToken(getToken()) === undefined){
+        if (await checkToken(getToken()) === undefined) {
             console.log('Denied like UnAuthorized')
             return
         }
         let method = (document.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
-        if (method === 'POST'){
+        if (method === 'POST') {
             document.querySelector('#post-template-like-icon').classList.replace('bi-heart', 'bi-heart-fill')
             document.querySelector('#post-template-like-icon').style.color = LIKE_COLOR
             let count = parseInt(document.querySelector('#post-template-likes-count').textContent) + 1
@@ -206,7 +225,7 @@ class MenuView {
             } catch (error) {
                 console.error(error)
             }
-        }else{
+        } else {
             document.querySelector('#post-template-like-icon').style.color = ''
             document.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
             let count = parseInt(document.querySelector('#post-template-likes-count').textContent) - 1

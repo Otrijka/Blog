@@ -47,7 +47,7 @@ class MenuModel {
             this.currentPageCount = data.pagination.count
             this.currentPage = data.pagination.current
             this.currentPageSize = data.pagination.size
-
+            
             data.posts.forEach(post => {
                 let newPost = new PostDto()
                 newPost.title = post.title
