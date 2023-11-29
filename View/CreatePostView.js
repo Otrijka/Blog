@@ -35,7 +35,6 @@ class CreatePostView {
             this.inputReadingTime.value,
             (this.inputImage.value.trim() !== "") ? this.inputImage.value : undefined,
             (this.inputCommunityId.value !== "") ? this.inputCommunityId.value : undefined,
-            (this.inputAddressId.value !== "") ? this.inputAddressId.value : undefined,
             tags
         )
     }
@@ -56,9 +55,6 @@ class CreatePostView {
         if (validateResult.communityId === false){
             this.inputCommunityId.classList.add('is-invalid')
         }
-        if (validateResult.addressId === false){
-            this.inputAddressId.classList.add('is-invalid')
-        }
         if (validateResult.tags === false){
             this.inputTags.classList.add('is-invalid')
         }
@@ -70,7 +66,6 @@ class CreatePostView {
         this.inputDescription.classList.remove('is-invalid')
         this.inputImage.classList.remove('is-invalid')
         this.inputTags.classList.remove('is-invalid')
-        this.inputAddressId.classList.remove('is-invalid')
         this.inputCommunityId.classList.remove('is-invalid')
         this.inputReadingTime.classList.remove('is-invalid')
     }

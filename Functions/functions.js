@@ -57,9 +57,16 @@ export function isImageValid(url, callback) {
 }
 
 
+export function smoothScrollToBottom(){
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+    });
+}
+
 export function smoothScrollToTop(){
     window.scrollTo({
-        top: 0,
+        d: 0,
         behavior: "smooth"
     });
 }
