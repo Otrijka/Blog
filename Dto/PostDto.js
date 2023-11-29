@@ -12,6 +12,7 @@ class PostDto {
     hasLike = undefined
     commentsCount = undefined
     tags = []
+    createTime = undefined
 
 }
 

@@ -1,5 +1,5 @@
 import {CURRENT_PAGE_SIZE, LIKE_COLOR, MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
-import {checkToken, getToken, isImageValid} from "../Functions/functions.js";
+import {checkToken, getToken, isImageValid, normalizeDate} from "../Functions/functions.js";
 import {POST} from "../Constants/ApiUrls.js";
 
 class MenuView {
@@ -23,6 +23,7 @@ class MenuView {
             cardTemplate.innerHTML = template.trim()
             cardTemplate.querySelector('#post-template-author').textContent = post.author
             cardTemplate.querySelector('#post-template-title').textContent = post.title
+            cardTemplate.querySelector('#post-template-date').textContent = ' - ' + normalizeDate(post.createTime)
             cardTemplate.querySelector('#post-template-title').setAttribute('data-id', post.id)
 
             if (post.hasLike) {
@@ -67,7 +68,6 @@ class MenuView {
 
             }
 
-            cardTemplate.querySelector('#post-template-date').textContent = post.date
             cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
             cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'

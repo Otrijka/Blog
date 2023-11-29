@@ -109,3 +109,7 @@ export async function checkToken(token) {
         console.error(error)
     }
 }
+
+export function normalizeDate(date){
+    return date.substring(0,10).split('-').reverse().join('.')
+}

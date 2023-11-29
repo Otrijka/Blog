@@ -64,6 +64,7 @@ class MenuModel {
                 newPost.commentsCount = post.commentsCount
                 newPost.tags = post.tags
                 newPost.id = post.id
+                newPost.createTime = post.createTime
                 postList.push(newPost)
             })
             return postList

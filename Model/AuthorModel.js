@@ -1,5 +1,5 @@
 import {AUTHOR} from "../Constants/ApiUrls.js";
-import {compareAuthors, getPageHtml} from "../Functions/functions.js";
+import {compareAuthors, getPageHtml, normalizeDate} from "../Functions/functions.js";
 import {AuthorDto} from "../Dto/AuthorDto.js";
 import {
     AUTHOR_TEMPLATE,
@@ -24,8 +24,8 @@ class AuthorModel {
             const data = (await response.json()).sort(compareAuthors)
             data.forEach((author, index) =>{
                 let newAuthor = new AuthorDto()
-                newAuthor.birthDate = author.birthDate.substring(0,10).split('-').reverse().join('.')
-                newAuthor.created = 'Cоздан: ' + author.created.substring(0,10).split('-').reverse().join('.')
+                newAuthor.birthDate = normalizeDate(author.birthDate)
+                newAuthor.created = 'Cоздан: ' + normalizeDate(author.created)
                 newAuthor.posts = 'Постов: ' + author.posts
                 newAuthor.likes = 'Лайков: ' + author.likes
                 newAuthor.gender = author.gender
