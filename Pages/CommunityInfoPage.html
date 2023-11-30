@@ -1,3 +1,73 @@
-<div>
-    asdasdasd
+<div class="container card">
+    <div class="card-body">
+        <div class="row mb-3">
+            <div id="communityInfo-name" class="fw-bold text-center text-sm-start fs-4 col-12 col-sm-8 mb-3 mb-sm-0">
+                Группа
+            </div>
+            <div class="col-12 col-sm-4 d-flex justify-content-center justify-content-sm-end flex-column flex-sm-row">
+                <button type="button" id="communityInfo-btn-write-post" class="btn btn-primary mb-3 mb-sm-0 me-3 w-100 ms-auto d-none">Написать пост</button>
+                <button type="button" id="communityInfo-btn-sub-unsub" class="btn w-100"></button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <i class="bi bi-people-fill"></i>
+                <span id="communityInfo-subs-counter" class="text-muted"></span>
+            </div>
+        </div>
+        <div class="row mb-3 text-muted">
+            <div id="communityInfo-private-status" class="col-12"></div>
+        </div>
+        <div class="row mb-3">
+            <div id="communityInfo-description" class="col-12"></div>
+        </div>
+        <div class="row">
+            <div class="fw-bold fs-5 mb-3">Администраторы</div>
+            <ul id="communityInfo-admins-holder" class="list-group list-group-flush">
+
+            </ul>
+        </div>
+    </div>
 </div>
+
+<div class="container card mt-3">
+    <div class="row">
+        <button class="btn btn-secondary btn-sm d-md-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
+            Фильтры
+        </button>
+        <div class="collapse d-md-block p-0" id="filtersCollapse">
+            <div class="card-header bg-light ">
+                <div class="text-muted ">Фильтры</div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+
+                    <div class="form-group col-md-6">
+                        <label for="filter-sorting-by">Сортировать</label>
+                        <select class="form-select" name="" id="filter-sorting-by">
+                            <option value="CreateDesc">По дате создания(сначала новые)</option>
+                            <option value="CreateAsc">По дате создания(сначала старые)</option>
+                            <option value="LikeDesc">По количеству лайков(сначала больше)</option>
+                            <option value="LikeAsc">По количеству лайков(сначала меньше)</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="filter-tags">Поиск по тэгам</label>
+                        <select class="form-select" multiple size="3" id="filter-tags">
+                            <!-- Тэги от сервера -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary float-end" id="btn-apply">Применить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="/communityInfo_index.js"></script>
