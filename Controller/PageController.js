@@ -6,7 +6,7 @@ import {
     REGISTRATION_PAGE,
     PROFILE_PAGE,
     AUTHORS_PAGE,
-    CREATE_POST_PAGE
+    CREATE_POST_PAGE, COMMUNITIES
 } from "../Constants/dimens.js";
 import {checkToken, getPageHtml, getToken, removeToken} from "../Functions/functions.js";
 
@@ -23,7 +23,6 @@ class PageController {
     async route() {
         const url = window.location.pathname
         let pageName
-
         switch (url) {
             case CREATE_POST_PAGE:
                 pageName = 'CreatePostPage'
@@ -42,6 +41,9 @@ class PageController {
                 break;
             case MAIN_PAGE:
                 pageName = 'MainPage'
+                break
+            case COMMUNITIES:
+                pageName = 'CommunityPage'
                 break
             default:
                 pageName = 'NotFoundPage'

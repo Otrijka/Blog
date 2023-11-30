@@ -21,11 +21,14 @@ class PageView {
         const dropdown = document.querySelector('#dropdown-header')
         const btnDropdown = document.querySelector('#btn-dropdown-header')
         const btnLogin = document.querySelector('#btn-login-header')
+        const communities = document.querySelector('#btn-communities-header')
         if (userEmail === undefined) {
             dropdown.classList.add('d-none')
+            communities.classList.add('d-none')
             btnLogin.classList.remove('d-none')
         } else {
             btnLogin.classList.add('d-none')
+            communities.classList.remove('d-none')
             btnDropdown.innerHTML = userEmail
             dropdown.classList.remove('d-none')
         }
