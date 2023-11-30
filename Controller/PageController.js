@@ -6,7 +6,8 @@ import {
     REGISTRATION_PAGE,
     PROFILE_PAGE,
     AUTHORS_PAGE,
-    CREATE_POST_PAGE, COMMUNITIES
+    CREATE_POST_PAGE, COMMUNITIES,
+    COMMUNITY_REGEXP
 } from "../Constants/dimens.js";
 import {checkToken, getPageHtml, getToken, removeToken} from "../Functions/functions.js";
 
@@ -46,16 +47,21 @@ class PageController {
                 pageName = 'CommunityPage'
                 break
             default:
-                pageName = 'NotFoundPage'
+
+                if (COMMUNITY_REGEXP.test(url)) {
+                    pageName = 'CommunityInfoPage'
+                } else {
+                    pageName = 'NotFoundPage'
+                }
                 break
         }
         const html = await getPageHtml(pageName)
         const userEmail = await checkToken(getToken())
 
-        this.view.renderPage(html,userEmail)
+        this.view.renderPage(html, userEmail)
     }
 
-    async logout(){
+    async logout() {
         removeToken()
         await this.model.logoutUser()
         window.location.pathname = LOGIN_PAGE

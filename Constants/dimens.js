@@ -8,6 +8,8 @@ export const AUTHORS_PAGE = '/authors'
 export const CREATE_POST_PAGE = '/post/create'
 export const COMMUNITIES = '/communities'
 
+export const COMMUNITY_REGEXP = /^\/communities\/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$/
+
 
 //Roles
 

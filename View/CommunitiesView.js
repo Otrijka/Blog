@@ -1,4 +1,4 @@
-import {ADMIN, SUB, SUBSCRIBE, UN_SUBSCRIBE} from "../Constants/dimens.js";
+import {ADMIN, COMMUNITY, SUB, SUBSCRIBE, UN_SUBSCRIBE} from "../Constants/dimens.js";
 
 class CommunitiesView {
 
@@ -37,6 +37,10 @@ class CommunitiesView {
             })
 
             container.querySelector('#community-template-name').innerText = community.name
+            container.querySelector('#community-template-name').style.cursor = 'pointer'
+            container.querySelector('#community-template-name').addEventListener('click', () => {
+                window.location.pathname = COMMUNITY + community.id
+            })
 
 
             holder.appendChild(container)

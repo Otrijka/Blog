@@ -1,0 +1,5 @@
+class CommunityInfoView{
+
+}
+
+export {CommunityInfoView}
