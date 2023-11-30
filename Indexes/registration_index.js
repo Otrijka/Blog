@@ -1,4 +1,4 @@
-import {RegistrationController} from "./Controller/RegistrationController.js";
+import {RegistrationController} from "../Controller/RegistrationController.js";
 
 let registrationController = new RegistrationController()
 

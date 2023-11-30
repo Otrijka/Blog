@@ -1,5 +1,5 @@
-import {LoginController} from "./Controller/LoginController.js";
-import {REGISTRATION_PAGE} from "./Constants/dimens.js";
+import {LoginController} from "../Controller/LoginController.js";
+import {REGISTRATION_PAGE} from "../Constants/dimens.js";
 
 let loginController = new LoginController()
 

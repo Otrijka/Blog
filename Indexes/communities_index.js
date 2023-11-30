@@ -1,4 +1,4 @@
-import {CommunitiesController} from "./Controller/CommunitiesController.js";
+import {CommunitiesController} from "../Controller/CommunitiesController.js";
 
 let communitiesController = new CommunitiesController()
 

@@ -1,4 +1,4 @@
-import {PageController} from './Controller/PageController.js'
+import {PageController} from '../Controller/PageController.js'
 
 let pageController = new PageController()
 await pageController.route()
