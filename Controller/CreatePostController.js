@@ -6,10 +6,6 @@ import {getPageHtml, smoothScrollToBottom} from "../Functions/functions.js";
 
 async function newSelectF(parentAddress, currentAddressLevel, addressInfo) {
 
-    console.log("Текущая цепочка");
-    console.log(addressInfo);
-    console.log("---------------");
-
     let addressHandler = document.querySelector('#create-post-address-handler');
     let template = await getPageHtml('/Templates/AddressSelectTemplate');
     let newContainerId = 'create-post-address-level-' + currentAddressLevel;
@@ -19,7 +15,12 @@ async function newSelectF(parentAddress, currentAddressLevel, addressInfo) {
     let templateContainer = document.createElement('div');
     templateContainer.id = newContainerId;
     templateContainer.classList.add('form-group', 'mb-2');
+
     templateContainer.innerHTML = template;
+
+    if (currentAddressLevel === 1) {
+        templateContainer.querySelector('#create-post-label-').innerText = 'Субъект РФ'
+    }
 
     templateContainer.querySelector('#create-post-select-level-').id = newSelectId;
     templateContainer.querySelector('#create-post-label-').id = newLabelId;
@@ -62,14 +63,20 @@ async function newSelectF(parentAddress, currentAddressLevel, addressInfo) {
     $(newSelect).append(placeholderOption).trigger('change');
 
     $(newSelect).on('select2:select', async function (e) {
-
         let address = {
             id: e.params.data.id,
             guid: e.params.data.guid,
             text: e.params.data.text,
             levelText: e.params.data.levelText,
         };
-        document.querySelector('#' + newLabelId).innerText = (address.levelText !== '') ? address.levelText : "Следующий элемент адреса";
+
+        if (newLabelId === 'create-post-label-1'){
+            document.querySelector('#' + newLabelId).innerText = 'Субъект РФ'
+        }else{
+            document.querySelector('#' + newLabelId).innerText = (address.levelText !== '') ? address.levelText : "Следующий элемент адреса";
+
+        }
+
         if (addressInfo[currentAddressLevel] !== undefined) {
             addressInfo[currentAddressLevel] = address;
             addressInfo.splice(currentAddressLevel + 1)

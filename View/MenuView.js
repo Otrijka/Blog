@@ -162,10 +162,6 @@ class MenuView {
         }
     }
 
-    getPageSize() {
-        return document.querySelector('#filter-page-post-size').value
-    }
-
     renderBtnNewPost(token) {
         if (token === null) {
             document.querySelector('#btn-new-post').classList.add('d-none')
