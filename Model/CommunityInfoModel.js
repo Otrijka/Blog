@@ -1,5 +1,5 @@
 import {COMMUNITY, COMMUNITY_ID, TAG} from "../Constants/ApiUrls.js";
-import {getPageHtml, getToken} from "../Functions/functions.js";
+import {checkToken, getPageHtml, getToken} from "../Functions/functions.js";
 import {SUBSCRIBE, UN_SUBSCRIBE} from "../Constants/dimens.js";
 
 class CommunityInfoModel {

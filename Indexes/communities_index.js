@@ -4,5 +4,3 @@ let communitiesController = new CommunitiesController()
 
 await communitiesController.init()
 
-
-document.querySelector('#comm')
