@@ -33,7 +33,6 @@ class MenuController {
 
     async useFilters() {
         this.model.currentPage = 1
-
         const query = buildQuery(this.view.getFiltersValues())
         this.currentQuery = query
         const posts = await this.model.getPosts(this.currentQuery)
@@ -74,7 +73,7 @@ class MenuController {
         this.currentQuery = query
         const posts = await this.model.getPosts(this.currentQuery)
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
-        window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
+        window.history.pushState({}, '', window.location.origin + '?' + this.currentQuery)
         this.view.renderPosts(this.template, posts)
 
         smoothScrollToTop()

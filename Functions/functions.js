@@ -67,7 +67,7 @@ export function smoothScrollToBottom(){
 
 export function smoothScrollToTop(){
     window.scrollTo({
-        d: 0,
+        top: 0,
         behavior: "smooth"
     });
 }
@@ -110,7 +110,6 @@ export async function checkToken(token, redirect = false) {
         const userProfile = await response.json()
         return userProfile.email
     } catch (error) {
-        console.error(error)
     }
 }
 

@@ -9,7 +9,8 @@ export const CREATE_POST_PAGE = '/post/create'
 export const COMMUNITIES = '/communities'
 
 export const COMMUNITY = '/communities/'
-export const COMMUNITY_REGEXP = /^\/communities\/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$/
+export const COMMUNITY_REGEXP = /^\/communities\/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})(?:\?.*)?$/
+
 
 
 //Roles
@@ -38,7 +39,7 @@ export const FEMALE = 'Female'
 
 // Menu
 
-export const MAX_LETTERS_ON_DESCRIPTION = 400
+export const MAX_LETTERS_ON_DESCRIPTION = 200
 export const CURRENT_PAGE_SIZE = 5
 
 export const GO_NEXT_PAGE = 'next'
