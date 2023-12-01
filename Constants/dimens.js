@@ -8,6 +8,10 @@ export const AUTHORS_PAGE = '/authors'
 export const CREATE_POST_PAGE = '/post/create'
 export const COMMUNITIES = '/communities'
 
+export const COMMUNITY = '/communities/'
+export const COMMUNITY_REGEXP = /^\/communities\/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})(?:\?.*)?$/
+
+
 
 //Roles
 
@@ -22,13 +26,11 @@ export const POST_TEMPLATE = 'Templates/PostTemplate'
 //Images
 
 export const MAN = '/Images/Man/man.svg'
-export const MAN_GOLD = '/Images/Man/man-gold.svg'
-export const MAN_SILVER = '/Images/Man/man-silver.svg'
-export const MAN_BRONZE = '/Images/Man/man-bronze.svg'
+
 export const WOMAN = '../Images/Woman/woman.svg'
-export const WOMAN_GOLD = '../Images/Woman/woman-gold.svg'
-export const WOMAN_SILVER = '../Images/Woman/woman-silver.svg'
-export const WOMAN_BRONZE = '../Images/Woman/woman-bronze.svg'
+export const MEDAL_GOLD = '../Images/Medal/gold-medal.svg'
+export const MEDAL_SILVER = '../Images/Medal/silver-medal.svg'
+export const MEDAL_BRONZE = '../Images/Medal/bronze-medal.svg'
 
 // Genders
 
@@ -37,7 +39,7 @@ export const FEMALE = 'Female'
 
 // Menu
 
-export const MAX_LETTERS_ON_DESCRIPTION = 400
+export const MAX_LETTERS_ON_DESCRIPTION = 200
 export const CURRENT_PAGE_SIZE = 5
 
 export const GO_NEXT_PAGE = 'next'

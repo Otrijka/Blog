@@ -3,12 +3,8 @@ import {compareAuthors, getPageHtml, normalizeDate} from "../Functions/functions
 import {AuthorDto} from "../Dto/AuthorDto.js";
 import {
     AUTHOR_TEMPLATE,
-    MALE, MAN,
-    MAN_BRONZE,
-    MAN_GOLD,
-    MAN_SILVER, WOMAN, WOMAN_BRONZE,
-    WOMAN_GOLD,
-    WOMAN_SILVER
+    MALE, MAN, MEDAL_BRONZE, MEDAL_GOLD, MEDAL_SILVER,
+    WOMAN,
 } from "../Constants/dimens.js";
 
 class AuthorModel {
@@ -17,12 +13,12 @@ class AuthorModel {
         try {
             const response = await fetch(AUTHOR, {
                 method: 'GET',
-                headers:{
+                headers: {
                     'Content-type': 'application/json'
                 }
             })
-            const data = (await response.json()).sort(compareAuthors)
-            data.forEach((author, index) =>{
+            let data = (await response.json()).sort(compareAuthors)
+            data.forEach((author, index) => {
                 let newAuthor = new AuthorDto()
                 newAuthor.birthDate = normalizeDate(author.birthDate)
                 newAuthor.created = 'Cоздан: ' + normalizeDate(author.created)
@@ -32,29 +28,31 @@ class AuthorModel {
                 newAuthor.fullName = author.fullName
                 newAuthor.position = index + 1
 
+                newAuthor.image = (author.gender === MALE) ? MAN : WOMAN
+
                 switch (newAuthor.position) {
                     case 1:
-                        newAuthor.image = (author.gender === MALE) ? MAN_GOLD : WOMAN_GOLD
+                        newAuthor.medal = MEDAL_GOLD
                         break
                     case 2:
-                        newAuthor.image = (author.gender === MALE) ? MAN_SILVER : WOMAN_SILVER
+                        newAuthor.medal = MEDAL_SILVER
                         break
                     case 3:
-                        newAuthor.image = (author.gender === MALE) ? MAN_BRONZE : WOMAN_BRONZE
+                        newAuthor.medal = MEDAL_BRONZE
                         break
                     default:
-                        newAuthor.image = (author.gender === MALE) ? MAN : WOMAN
+                        newAuthor.medal = ""
                 }
                 authorList.push(newAuthor)
             })
-            return authorList
+            return authorList.sort((a,b) => a.fullName.localeCompare(b.fullName, 'en-US'))
 
         } catch (error) {
             console.error(error)
         }
     }
 
-    async getAuthorTemplate(){
+    async getAuthorTemplate() {
         return await getPageHtml(AUTHOR_TEMPLATE)
     }
 }

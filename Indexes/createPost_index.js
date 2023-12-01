@@ -1,4 +1,4 @@
-import {CreatePostController} from "./Controller/CreatePostController.js";
+import {CreatePostController} from "../Controller/CreatePostController.js";
 
 let createPostController = new CreatePostController()
 

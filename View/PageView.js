@@ -24,7 +24,7 @@ class PageView {
         const communities = document.querySelector('#btn-communities-header')
         if (userEmail === undefined) {
             dropdown.classList.add('d-none')
-            communities.classList.add('d-none')
+            communities.classList.remove('d-none')
             btnLogin.classList.remove('d-none')
         } else {
             btnLogin.classList.add('d-none')

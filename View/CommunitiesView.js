@@ -1,4 +1,5 @@
-import {ADMIN, SUB, SUBSCRIBE, UN_SUBSCRIBE} from "../Constants/dimens.js";
+import {ADMIN, COMMUNITY, SUB, SUBSCRIBE, UN_SUBSCRIBE} from "../Constants/dimens.js";
+import {checkToken, getToken} from "../Functions/functions.js";
 
 class CommunitiesView {
 
@@ -26,17 +27,23 @@ class CommunitiesView {
             }
             btn.addEventListener('click', async () => {
                 if (btn.innerText === 'Подписаться') {
-                    btn.innerText = 'Отписаться'
-                    btn.classList.replace('btn-primary', 'btn-danger')
-                    await callback(SUBSCRIBE, community.id)
+                    if (await callback(SUBSCRIBE, community.id)) {
+                        btn.innerText = 'Отписаться'
+                        btn.classList.replace('btn-primary', 'btn-danger')
+                    }
                 } else {
-                    btn.innerText = 'Подписаться'
-                    btn.classList.replace('btn-danger', 'btn-primary')
-                    await callback(UN_SUBSCRIBE, community.id)
+                    if (await callback(UN_SUBSCRIBE, community.id)) {
+                        btn.innerText = 'Подписаться'
+                        btn.classList.replace('btn-danger', 'btn-primary')
+                    }
                 }
             })
 
             container.querySelector('#community-template-name').innerText = community.name
+            container.querySelector('#community-template-name').style.cursor = 'pointer'
+            container.querySelector('#community-template-name').addEventListener('click', () => {
+                window.location.pathname = COMMUNITY + community.id
+            })
 
 
             holder.appendChild(container)

@@ -1,4 +1,4 @@
-import {ProfileController} from "./Controller/ProfileController.js";
+import {ProfileController} from "../Controller/ProfileController.js";
 
 
 let profileController = new ProfileController()

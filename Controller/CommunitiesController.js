@@ -11,7 +11,6 @@ class CommunitiesController {
     }
 
     async init(){
-
         const template = await this.model.getCommunityTemplate()
         const communities = await this.model.getCommunities()
 

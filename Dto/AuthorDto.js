@@ -9,6 +9,7 @@ class AuthorDto{
 
     position
     image
+    medal
 }
 
 export {AuthorDto}

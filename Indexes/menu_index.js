@@ -1,6 +1,6 @@
-import {MenuController} from "./Controller/MenuController.js";
-import {smoothScrollToTop} from "./Functions/functions.js";
-import {GO_NEXT_PAGE, GO_PREVIOUS_PAGE} from "./Constants/dimens.js";
+import {MenuController} from "../Controller/MenuController.js";
+import {smoothScrollToTop} from "../Functions/functions.js";
+import {GO_NEXT_PAGE, GO_PREVIOUS_PAGE} from "../Constants/dimens.js";
 
 let menuController = new MenuController()
 

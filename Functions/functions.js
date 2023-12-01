@@ -1,4 +1,5 @@
 import {PROFILE} from "../Constants/ApiUrls.js";
+import {LOGIN_PAGE} from "../Constants/dimens.js";
 
 export function getToken() {
     return window.localStorage.getItem('jwtToken')
@@ -66,7 +67,7 @@ export function smoothScrollToBottom(){
 
 export function smoothScrollToTop(){
     window.scrollTo({
-        d: 0,
+        top: 0,
         behavior: "smooth"
     });
 }
@@ -93,7 +94,7 @@ export function buildQuery(filters) {
 }
 
 
-export async function checkToken(token) {
+export async function checkToken(token, redirect = false) {
     try {
         const response = await fetch(PROFILE, {
             headers: {
@@ -101,12 +102,20 @@ export async function checkToken(token) {
             }
         })
         if (!response.ok) {
+            if (redirect){
+                redirectTo(LOGIN_PAGE)
+            }
             throw new Error(`Failed to fetch ${response.status}`)
         }
         const userProfile = await response.json()
         return userProfile.email
     } catch (error) {
-        console.error(error)
+    }
+}
+
+export function redirectTo(pathName){
+    if (window.location.pathname !== pathName){
+        window.location.pathname = pathName
     }
 }
 

@@ -12,6 +12,7 @@ class AuthorView {
             authorTemplate.querySelector('#author-template-likes-count').textContent = author.likes
             authorTemplate.querySelector('#author-template-posts-count').textContent = author.posts
             authorTemplate.querySelector('#author-template-image').src = author.image
+            authorTemplate.querySelector('#author-template-medal').src = author.medal
 
             while (authorTemplate.firstChild) {
                 authorFragment.appendChild(authorTemplate.firstChild);
