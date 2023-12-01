@@ -35,6 +35,7 @@ class MenuController {
         this.model.currentPage = 1
         const query = buildQuery(this.view.getFiltersValues())
         this.currentQuery = query
+        this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
         const posts = await this.model.getPosts(this.currentQuery)
         window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
         this.view.renderPosts(this.template, posts)
@@ -50,27 +51,20 @@ class MenuController {
 
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
         const query = buildQuery(this.view.getFiltersValues(this.model.currentPage))
+        this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
         this.currentQuery = query
         const posts = await this.model.getPosts(this.currentQuery)
-        window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
+        window.history.pushState({}, '', window.location.origin + '?' + this.currentQuery)
         this.view.renderPosts(this.template, posts)
 
         smoothScrollToTop()
     }
 
     async changePageSize() {
-        // let page
-        // let newPageSize = this.view.getPageSize()
-        // if (this.model.currentPageSize > newPageSize) {
-        //     page = Math.floor(((this.model.currentPageSize * this.model.currentPage - Math.abs(this.model.currentPageSize - newPageSize)) / newPageSize))
-        //     page = (page < 1) ? 1 : page
-        // } else {
-        //     page = Math.ceil(this.model.currentPageSize * this.model.currentPage / newPageSize)
-        // }
-
 
         const query = buildQuery(this.view.getFiltersValues())
         this.currentQuery = query
+        this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
         const posts = await this.model.getPosts(this.currentQuery)
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
         window.history.pushState({}, '', window.location.origin + '?' + this.currentQuery)
