@@ -7,11 +7,12 @@ class MenuController {
     model
     view
     template
-    currentQuery = new URLSearchParams(window.location.search)
+    currentQuery
 
     constructor() {
         this.model = new MenuModel()
         this.view = new MenuView()
+        this.currentQuery = new URLSearchParams(window.location.search)
     }
 
 
@@ -37,12 +38,11 @@ class MenuController {
         this.currentQuery = query
         this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
         const posts = await this.model.getPosts(this.currentQuery)
-        window.history.pushState({}, '', window.location.origin + '/?' + this.currentQuery)
+        window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
         this.view.renderPosts(this.template, posts)
     }
 
     async switchPage(param) {
-
         if (param === GO_NEXT_PAGE) {
             this.model.currentPage = this.model.currentPage < this.model.currentPageCount ? this.model.currentPage + 1 : this.model.currentPage
         } else if (param === GO_PREVIOUS_PAGE) {
@@ -54,7 +54,7 @@ class MenuController {
         this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
         this.currentQuery = query
         const posts = await this.model.getPosts(this.currentQuery)
-        window.history.pushState({}, '', window.location.origin + '?' + this.currentQuery)
+        window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
         this.view.renderPosts(this.template, posts)
 
         smoothScrollToTop()
@@ -67,7 +67,7 @@ class MenuController {
         this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
         const posts = await this.model.getPosts(this.currentQuery)
         this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
-        window.history.pushState({}, '', window.location.origin + '?' + this.currentQuery)
+        window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
         this.view.renderPosts(this.template, posts)
 
         smoothScrollToTop()

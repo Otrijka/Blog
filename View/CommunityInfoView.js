@@ -1,5 +1,5 @@
 import {
-    ADMIN, CURRENT_PAGE_SIZE,
+    ADMIN, CREATE_POST_PAGE, CURRENT_PAGE_SIZE,
     LIKE_COLOR,
     MALE,
     MAN,
@@ -45,7 +45,7 @@ class CommunityInfoView {
         document.querySelector('#filter-page-post-size').value = (params.size !== null) ? params.size : CURRENT_PAGE_SIZE
     }
 
-    renderInfo(adminTemplate, info, callback) {
+    renderInfo(adminTemplate, info, communityId, callback) {
         let adminsHolder = document.querySelector('#communityInfo-admins-holder')
         let admins = info.administrators
         admins.forEach(admin => {
@@ -97,6 +97,10 @@ class CommunityInfoView {
                 }
 
             }
+        })
+
+        btnWritePost.addEventListener('click', () => {
+            window.location.href = CREATE_POST_PAGE + "?communityId=" + communityId
         })
 
     }

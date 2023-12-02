@@ -61,6 +61,13 @@ class CreatePostView {
 
     }
 
+    renderCommunityValue(communityValue) {
+        const option  = document.querySelector('#create-post-community').querySelector(`option[value="${communityValue}"]`)
+        if (option){
+            option.selected = true
+        }
+    }
+
     clearErrors(){
         this.inputTitle.classList.remove('is-invalid')
         this.inputDescription.classList.remove('is-invalid')
