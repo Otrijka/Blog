@@ -1,0 +1,5 @@
+class PostInfoView {
+
+}
+
+export {PostInfoView}

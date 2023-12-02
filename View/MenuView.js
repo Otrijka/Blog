@@ -1,4 +1,4 @@
-import {CURRENT_PAGE_SIZE, LIKE_COLOR, MAX_LETTERS_ON_DESCRIPTION} from "../Constants/dimens.js";
+import {CURRENT_PAGE_SIZE, LIKE_COLOR, MAX_LETTERS_ON_DESCRIPTION, POST_PAGE} from "../Constants/dimens.js";
 import {checkToken, getToken, isImageValid, normalizeDateTime} from "../Functions/functions.js";
 import {POST} from "../Constants/ApiUrls.js";
 
@@ -23,6 +23,10 @@ class MenuView {
             cardTemplate.innerHTML = template.trim()
             cardTemplate.querySelector('#post-template-author').textContent = post.author
             cardTemplate.querySelector('#post-template-title').textContent = post.title
+            cardTemplate.querySelector('#post-template-title').style.cursor = 'pointer'
+            cardTemplate.querySelector('#post-template-title').addEventListener('click', () => {
+                window.location.pathname = POST_PAGE + post.id
+            })
             cardTemplate.querySelector('#post-template-date').textContent = ' - ' + normalizeDateTime(post.createTime)
             cardTemplate.querySelector('#post-template-title').setAttribute('data-id', post.id)
 
@@ -39,54 +43,7 @@ class MenuView {
                 cardTemplate.querySelector("#post-template-comments-icon").classList.add('bi-chat-left')
             }
 
-            normalizeDescription(post.description)
-
-            function normalizeDescription(text) {
-                let descriptionHolder = cardTemplate.querySelector('#post-template-description')
-                let showedLetters = 0
-                let words = post.description.replace(/\n/g, ' <br> ').split(' ')
-                let iterator = 0;
-                if (words.length === 1 && words[0].length > MAX_LETTERS_ON_DESCRIPTION) {
-                    let newWords = []
-                    newWords.push(words[0].substring(0, MAX_LETTERS_ON_DESCRIPTION))
-                    newWords.push(words[0].substring(MAX_LETTERS_ON_DESCRIPTION, words[0].length - 1))
-                    descriptionHolder.innerHTML = newWords[0]
-                    let readMoreBtn = document.createElement('button')
-                    readMoreBtn.classList.add('btn')
-                    readMoreBtn.classList.add('btn-link')
-                    readMoreBtn.textContent = 'Читать далее'
-                    readMoreBtn.style.display = 'block'
-                    descriptionHolder.appendChild(readMoreBtn)
-                    readMoreBtn.onclick = () => {
-                        descriptionHolder.removeChild(readMoreBtn)
-                        descriptionHolder.innerHTML += newWords[1]
-                    }
-                } else {
-                    while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
-                        descriptionHolder.innerHTML += words[iterator] + ' '
-                        showedLetters += words[iterator].length
-                        iterator++
-                        if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
-
-                            let readMoreBtn = document.createElement('button')
-                            readMoreBtn.classList.add('btn')
-                            readMoreBtn.classList.add('btn-link')
-                            readMoreBtn.textContent = 'Читать далее'
-                            readMoreBtn.style.display = 'block'
-                            descriptionHolder.appendChild(readMoreBtn)
-                            readMoreBtn.onclick = () => {
-                                descriptionHolder.removeChild(readMoreBtn)
-                                while (iterator < words.length) {
-                                    descriptionHolder.innerHTML += words[iterator] + ' '
-                                    iterator++
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-
+            normalizeDescription(cardTemplate, post)
             cardTemplate.querySelector('#post-template-likes-count').textContent = post.likes
             cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
@@ -199,49 +156,53 @@ class MenuView {
         }
     }
 
-    async addLike(postId) {
-        if (await checkToken(getToken()) === undefined) {
-            console.log('Denied like UnAuthorized')
-            return
-        }
-        let method = (document.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
-        if (method === 'POST') {
-            document.querySelector('#post-template-like-icon').classList.replace('bi-heart', 'bi-heart-fill')
-            document.querySelector('#post-template-like-icon').style.color = LIKE_COLOR
-            let count = parseInt(document.querySelector('#post-template-likes-count').textContent) + 1
-            document.querySelector('#post-template-likes-count').textContent = count
-            try {
-                const response = await fetch(`https://blog.kreosoft.space/api/post/${postId}/like`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': 'Bearer ' + getToken()
-                    }
-                })
-            } catch (error) {
-                console.error(error)
-            }
-        } else {
-            document.querySelector('#post-template-like-icon').style.color = ''
-            document.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
-            let count = parseInt(document.querySelector('#post-template-likes-count').textContent) - 1
-            document.querySelector('#post-template-likes-count').textContent = count
-            try {
-                const response = await fetch(`https://blog.kreosoft.space/api/post/${postId}/like`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': 'Bearer ' + getToken()
-                    }
-                })
-            } catch (error) {
-                console.error(error)
-            }
-        }
+}
 
 
+function normalizeDescription(cardTemplate, post) {
+    let descriptionHolder = cardTemplate.querySelector('#post-template-description')
+    let showedLetters = 0
+    let words = post.description.replace(/\n/g, ' <br> ').split(' ')
+    let iterator = 0;
+    if (words.length === 1 && words[0].length > MAX_LETTERS_ON_DESCRIPTION) {
+        let newWords = []
+        newWords.push(words[0].substring(0, MAX_LETTERS_ON_DESCRIPTION))
+        newWords.push(words[0].substring(MAX_LETTERS_ON_DESCRIPTION, words[0].length - 1))
+        descriptionHolder.innerHTML = newWords[0]
+        let readMoreBtn = document.createElement('button')
+        readMoreBtn.classList.add('btn')
+        readMoreBtn.classList.add('btn-link')
+        readMoreBtn.textContent = 'Читать далее'
+        readMoreBtn.style.display = 'block'
+        descriptionHolder.appendChild(readMoreBtn)
+        readMoreBtn.onclick = () => {
+            descriptionHolder.removeChild(readMoreBtn)
+            descriptionHolder.innerHTML += newWords[1]
+        }
+    } else {
+        while (showedLetters < MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
+            descriptionHolder.innerHTML += words[iterator] + ' '
+            showedLetters += words[iterator].length
+            iterator++
+            if (showedLetters > MAX_LETTERS_ON_DESCRIPTION && iterator < words.length) {
+
+                let readMoreBtn = document.createElement('button')
+                readMoreBtn.classList.add('btn')
+                readMoreBtn.classList.add('btn-link')
+                readMoreBtn.textContent = 'Читать далее'
+                readMoreBtn.style.display = 'block'
+                descriptionHolder.appendChild(readMoreBtn)
+                readMoreBtn.onclick = () => {
+                    descriptionHolder.removeChild(readMoreBtn)
+                    while (iterator < words.length) {
+                        descriptionHolder.innerHTML += words[iterator] + ' '
+                        iterator++
+                    }
+                }
+            }
+
+        }
     }
-
 }
 
 export {MenuView}

@@ -25,3 +25,4 @@ document.querySelector('#filter-page-post-size').addEventListener('change',  asy
 document.querySelector('#btn-new-post').addEventListener('click', () => {
     window.location.href = '/post/create'
 })
+

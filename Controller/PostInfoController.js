@@ -1,0 +1,5 @@
+class PostInfoController {
+
+}
+
+export {PostInfoController}
