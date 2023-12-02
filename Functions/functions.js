@@ -90,7 +90,7 @@ export function buildQuery(filters) {
         }
     }
 
-    return query.toString()
+    return query
 }
 
 

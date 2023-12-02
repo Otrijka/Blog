@@ -8,7 +8,6 @@ class CommunityInfoController {
     view
     communityId
 
-    currentPage
     currentQuery = new URLSearchParams(window.location.search)
 
 
@@ -16,7 +15,6 @@ class CommunityInfoController {
         this.model = new CommunityInfoModel()
         this.view = new CommunityInfoView()
         this.communityId = window.location.pathname.split('/')[2]
-        this.currentPage = 1
     }
 
     async init() {
@@ -26,7 +24,7 @@ class CommunityInfoController {
         let info = await this.model.getCommunityInfo(this.communityId)
         const adminTemplate = await this.model.getAdminTemplate()
 
-        this.view.renderInfo(adminTemplate, info, this.model.doBtnAction)
+        this.view.renderInfo(adminTemplate, info, this.communityId, this.model.doBtnAction)
         this.view.renderFiltersValues(this.model.getFiltersValuesFromQuery(this.currentQuery))
 
         const posts = await this.model.getCommunityPosts(this.communityId, this.currentQuery.toString())

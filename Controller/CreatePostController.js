@@ -118,6 +118,7 @@ function clearSelects(selectRef) {
 class CreatePostController {
     model
     view
+    query
 
     currentAddressLevel = 1
     addressInfo = [{
@@ -129,6 +130,7 @@ class CreatePostController {
     constructor() {
         this.model = new CreatePostModel()
         this.view = new CreatePostView()
+        this.query = new URLSearchParams(window.location.search)
     }
 
 
@@ -137,7 +139,8 @@ class CreatePostController {
         const communities = await this.model.getAdminUsersCommunities()
         const tags = await this.model.getTags()
         this.view.renderTags(tags)
-        this.view.renderCommunities(communities)
+        await this.view.renderCommunities(communities)
+        this.view.renderCommunityValue(this.model.getCommunityValueFromQuery(this.query))
 
         await newSelectF(0, this.currentAddressLevel, this.addressInfo)
     }

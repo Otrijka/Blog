@@ -52,10 +52,21 @@ class CreatePostModel {
         }
     }
 
+    getCommunityValueFromQuery(query) {
+        return query.get('communityId')
+    }
+
 
     async sendNewPostData(data) {
+        let url
+        if (data.communityId === undefined) {
+            url = POST
+        } else {
+            url = COMMUNITY_ID + data.communityId + '/post'
+        }
+
         try {
-            const response = await fetch(POST, {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
