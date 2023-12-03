@@ -1,5 +1,6 @@
 import {PostInfoView} from "../View/PostInfoView.js";
 import {PostInfoModel} from "../Model/PostInfoModel.js";
+import {checkToken, getToken} from "../Functions/functions.js";
 
 class PostInfoController {
     model
@@ -23,7 +24,7 @@ class PostInfoController {
         this.view.renderPostInfo(postData)
 
         const commentTemplates = await this.model.getCommentSubCommentTemplate()
-        this.view.renderComments(commentTemplates.commentTemplate, commentTemplates.subCommentTemplate,  postData.comments)
+        this.view.renderComments(postData.id, commentTemplates.commentTemplate, commentTemplates.subCommentTemplate,  postData.comments, await checkToken(getToken()))
     }
 
 

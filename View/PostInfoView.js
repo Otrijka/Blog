@@ -1,8 +1,11 @@
 import {LIKE_COLOR, LOGIN_PAGE, POST_PAGE} from "../Constants/dimens.js";
 import {checkToken, getToken, isImageValid, normalizeDateTime} from "../Functions/functions.js";
-import {POST_ID} from "../Constants/ApiUrls.js";
+import {COMMENT, POST_ID} from "../Constants/ApiUrls.js";
 
 class PostInfoView {
+
+    isRefactoring = false
+    post
 
     renderPostInfo(post) {
         document.querySelector('#post-template-author').textContent = post.author
@@ -101,26 +104,10 @@ class PostInfoView {
         })
     }
 
-    renderComments(commentTemplate, subCommentTemplate, rootComments) {
+    renderComments(postId, commentTemplate, subCommentTemplate, rootComments, checkResponse = {id: "", email: ""}) {
+        console.log(checkResponse)
         rootComments.forEach(comment => {
-            let commentContainer = document.createElement('div')
-            commentContainer.innerHTML = commentTemplate.trim()
-
-            commentContainer.querySelector('#post-info-comment-author-name').innerHTML = comment.author
-            commentContainer.querySelector('#post-info-comment-text').innerHTML = comment.content
-            commentContainer.querySelector('#post-info-comment-date').innerHTML = normalizeDateTime(comment.createTime)
-
-            if (comment.modifiedDate !== null && comment.deleteDate === null) {
-                commentContainer.querySelector('#post-info-comment-rewrite-status').classList.remove('d-none')
-                commentContainer.querySelector('#post-info-comment-rewrite-status').title = normalizeDateTime(comment.modifiedDate)
-            }
-
-            if (comment.deleteDate !== null) {
-                commentContainer.querySelector('#post-info-comment-text').innerText = "[Комментарий удалён]"
-                commentContainer.querySelector('#post-info-comment-author-name').innerText = "[Комментарий удалён]"
-                commentContainer.querySelector('#post-info-comment-text').title = normalizeDateTime(comment.deleteDate)
-            }
-
+            let commentContainer = this.initComment(comment, commentTemplate, checkResponse, postId)
 
             commentContainer.querySelector('#post-info-comment-btn-open-sub-comments').addEventListener('click', () => {
                 commentContainer.querySelector('#post-info-comment-btn-open-sub-comments').classList.add('d-none')
@@ -144,17 +131,8 @@ class PostInfoView {
                 commentContainer.querySelector('#post-info-subComments-holder').classList.add('d-none')
             } else {
                 comment.subComments.forEach(subComment => {
-                    let subCommentContainer = document.createElement('div')
-                    subCommentContainer.innerHTML = subCommentTemplate.trim()
-                    subCommentContainer.querySelector('#post-info-subComment-author-name').innerText = subComment.author
-                    subCommentContainer.querySelector('#post-info-subComment-text').innerHTML = subComment.content
-                    subCommentContainer.querySelector('#post-info-subComment-date').innerText = normalizeDateTime(subComment.createTime)
 
-                    if (subComment.modifiedDate !== null) {
-                        subCommentContainer.querySelector('#post-info-subComment-rewrite-status').classList.remove('d-none')
-                        subCommentContainer.querySelector('#post-info-subComment-rewrite-status').title = normalizeDateTime(comment.modifiedDate)
-                    }
-
+                    let subCommentContainer = this.initComment(subComment, subCommentTemplate, checkResponse, postId)
                     commentContainer.querySelector('#post-info-subComments-holder').appendChild(subCommentContainer)
                 })
             }
@@ -168,9 +146,120 @@ class PostInfoView {
 
     }
 
+    initComment(comment, commentTemplate, checkResponse, postId) {
+        let commentContainer = document.createElement('div')
+        commentContainer.innerHTML = commentTemplate.trim()
+
+        commentContainer.querySelector('#post-info-comment-author-name').innerHTML = comment.author
+        commentContainer.querySelector('#post-info-comment-text').innerHTML = comment.content
+        commentContainer.querySelector('#post-info-comment-date').innerHTML = normalizeDateTime(comment.createTime)
+
+        if (comment.modifiedDate !== null && comment.deleteDate === null) {
+            commentContainer.querySelector('#post-info-comment-rewrite-status').classList.remove('d-none')
+            commentContainer.querySelector('#post-info-comment-rewrite-status').title = normalizeDateTime(comment.modifiedDate)
+        }
+
+        if (comment.deleteDate !== null) {
+            commentContainer.querySelector('#post-info-comment-text').innerText = "[Комментарий удалён]"
+            commentContainer.querySelector('#post-info-comment-author-name').innerText = "[Комментарий удалён]"
+            commentContainer.querySelector('#post-info-comment-text').title = normalizeDateTime(comment.deleteDate)
+        }
+        if (comment.authorId === checkResponse.id && comment.deleteDate === null) {
+            commentContainer.querySelector('#post-info-comment-pencil-icon').classList.remove('d-none')
+            commentContainer.querySelector('#post-info-comment-trash-icon').classList.remove('d-none')
+        }
+
+        commentContainer.querySelector('#post-info-comment-trash-icon').addEventListener('click', async () => {
+            await fetch(COMMENT + comment.id, {
+                method: 'DELETE',
+                headers: {'Authorization': 'Bearer ' + getToken()}
+            })
+            window.location.reload()
+        })
+
+        commentContainer.querySelector('#post-info-comment-pencil-icon').addEventListener('click', async () => {
+            let refactorInputs = document.querySelector('#post-info-comments-container').querySelectorAll('#post-info-comment-refactor')
+            let answerInputs = document.querySelector('#post-info-comments-container').querySelectorAll('#post-info-comment-answer')
+            refactorInputs.forEach(input => {
+                if (input !== commentContainer.querySelector('#post-info-comment-refactor')) {
+                    input.classList.add('d-none')
+                    input.value = ""
+                }
+            })
+            answerInputs.forEach(input => {
+                if (input !== commentContainer.querySelector('#post-info-comment-answer')) {
+                    input.classList.add('d-none')
+                    input.value = ""
+                }
+            })
+
+            if (commentContainer.querySelector('#post-info-comment-refactor').classList.contains('d-none')) {
+                commentContainer.querySelector('#post-info-comment-refactor').classList.remove('d-none')
+                commentContainer.querySelector('#post-info-comment-refactor-input').value = comment.content
+
+
+                commentContainer.querySelector('#post-info-comment-btn-refactor-send').addEventListener('click', async () => {
+                    let text = commentContainer.querySelector('#post-info-comment-refactor-input').value
+                    if (text !== "" || text.trim() !== "") {
+                        await fetch(COMMENT + comment.id, {
+                            method: 'PUT',
+                            headers: {'Content-type': 'application/json', 'Authorization': 'Bearer ' + getToken()},
+                            body: JSON.stringify({content: text})
+                        })
+                        window.location.reload()
+                    }
+                })
+            } else {
+                commentContainer.querySelector('#post-info-comment-refactor').classList.add('d-none')
+                commentContainer.querySelector('#post-info-comment-refactor').querySelector('input').value = ""
+            }
+
+        })
+
+        commentContainer.querySelector('#post-info-comment-btn-answer').addEventListener('click', () => {
+            let refactorInputs = document.querySelector('#post-info-comments-container').querySelectorAll('#post-info-comment-refactor')
+            let answerInputs = document.querySelector('#post-info-comments-container').querySelectorAll('#post-info-comment-answer')
+            refactorInputs.forEach(input => {
+                if (input !== commentContainer.querySelector('#post-info-comment-refactor')) {
+                    input.classList.add('d-none')
+                    input.value = ""
+                }
+            })
+            answerInputs.forEach(input => {
+                if (input !== commentContainer.querySelector('#post-info-comment-answer')) {
+                    input.classList.add('d-none')
+                    input.value = ""
+                }
+            })
+
+
+            if (commentContainer.querySelector('#post-info-comment-answer').classList.contains('d-none')) {
+                commentContainer.querySelector('#post-info-comment-answer').classList.remove('d-none')
+
+                commentContainer.querySelector('#post-info-comment-btn-answer-send').addEventListener('click', async () => {
+                    let text = commentContainer.querySelector('#post-info-comment-answer-input').value
+                    if (text !== "" || text.trim() !== "") {
+                        await fetch(POST_ID + postId + '/comment', {
+                            method: 'POST',
+                            headers: {'Content-type': 'application/json', 'Authorization': 'Bearer ' + getToken()},
+                            body: JSON.stringify({content: text, parentId: comment.id})
+                        })
+
+                        window.location.reload()
+                    }
+                })
+            } else {
+                commentContainer.querySelector('#post-info-comment-answer').classList.add('d-none')
+                commentContainer.querySelector('#post-info-comment-answer').querySelector('input').value = ""
+            }
+        })
+
+        return commentContainer
+    }
+
     async sendComment(postId, text, parentId = null) {
         await checkToken(getToken(), true)
-        if (text === "" || text.trim() === ""){
+        if (text === "" || text.trim() === "") {
             return
         }
         let data = {

@@ -59,9 +59,9 @@ class PageController {
                 break
         }
         const html = await getPageHtml(pageName)
-        const userEmail = await checkToken(getToken())
+        const checkResponse = await checkToken(getToken())
 
-        this.view.renderPage(html, userEmail)
+        this.view.renderPage(html, checkResponse)
     }
 
     async logout() {
