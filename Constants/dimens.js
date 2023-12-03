@@ -24,6 +24,8 @@ export const ADMIN = 'Administrator'
 
 export const AUTHOR_TEMPLATE = 'Templates/AuthorTemplate'
 export const POST_TEMPLATE = 'Templates/PostTemplate'
+export const COMMENT_TEMPLATE = 'Templates/CommentTemplate'
+export const SUB_COMMENT_TEMPLATE = 'Templates/SubCommentTemplate'
 
 //Images
 

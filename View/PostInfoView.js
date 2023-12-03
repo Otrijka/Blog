@@ -1,5 +1,6 @@
-import {LIKE_COLOR, POST_PAGE} from "../Constants/dimens.js";
+import {LIKE_COLOR, LOGIN_PAGE, POST_PAGE} from "../Constants/dimens.js";
 import {checkToken, getToken, isImageValid, normalizeDateTime} from "../Functions/functions.js";
+import {POST_ID} from "../Constants/ApiUrls.js";
 
 class PostInfoView {
 
@@ -28,6 +29,7 @@ class PostInfoView {
 
         document.querySelector('#post-template-likes-count').textContent = post.likes
         document.querySelector('#post-template-comments-count').textContent = post.commentsCount
+        document.querySelector('#post-template-description').innerHTML = post.description.replace(/\n/g, ' <br> ')
         document.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
         document.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
         document.querySelector('#post-template-like-icon').addEventListener('click', async () => {
@@ -80,6 +82,107 @@ class PostInfoView {
             newTag.textContent = '#' + tag.name + ' '
             document.querySelector('#post-template-tags').appendChild(newTag)
         })
+
+        document.querySelector('#post-info-btn-send-comment').addEventListener('click', async () => {
+            const text = document.querySelector('#post-info-comment-textarea').value
+            await this.sendComment(post.id, text)
+        })
+    }
+
+    renderAddress(addressChain) {
+        if (addressChain.length === 0) {
+            document.querySelector('#post-template-address-icon').classList.add('d-none')
+        }
+        addressChain.forEach((address, index) => {
+            let suffix = (index === addressChain.length - 1) ? "" : ", "
+            address.text = (address.objectLevel === "Building") ? `д ${address.text}` : address.text
+            let text = (address.text.replace(' ', '. '))
+            document.querySelector('#post-template-address').innerHTML += text + suffix
+        })
+    }
+
+    renderComments(commentTemplate, subCommentTemplate, rootComments) {
+        rootComments.forEach(comment => {
+            let commentContainer = document.createElement('div')
+            commentContainer.innerHTML = commentTemplate.trim()
+
+            commentContainer.querySelector('#post-info-comment-author-name').innerHTML = comment.author
+            commentContainer.querySelector('#post-info-comment-text').innerHTML = comment.content
+            commentContainer.querySelector('#post-info-comment-date').innerHTML = normalizeDateTime(comment.createTime)
+
+            if (comment.modifiedDate !== null && comment.deleteDate === null) {
+                commentContainer.querySelector('#post-info-comment-rewrite-status').classList.remove('d-none')
+                commentContainer.querySelector('#post-info-comment-rewrite-status').title = normalizeDateTime(comment.modifiedDate)
+            }
+
+            if (comment.deleteDate !== null) {
+                commentContainer.querySelector('#post-info-comment-text').innerText = "[Комментарий удалён]"
+                commentContainer.querySelector('#post-info-comment-author-name').innerText = "[Комментарий удалён]"
+                commentContainer.querySelector('#post-info-comment-text').title = normalizeDateTime(comment.deleteDate)
+            }
+
+
+            commentContainer.querySelector('#post-info-comment-btn-open-sub-comments').addEventListener('click', () => {
+                commentContainer.querySelector('#post-info-comment-btn-open-sub-comments').classList.add('d-none')
+                commentContainer.querySelector('#post-info-subComments-holder').classList.remove('d-none')
+                commentContainer.querySelector('#post-info-comment-btn-hide-sub-comments').classList.remove('d-none')
+            })
+
+            commentContainer.querySelector('#post-info-comment-btn-hide-sub-comments').addEventListener('click', () => {
+                commentContainer.querySelector('#post-info-comment-btn-open-sub-comments').classList.remove('d-none')
+                commentContainer.querySelector('#post-info-subComments-holder').classList.add('d-none')
+                commentContainer.querySelector('#post-info-comment-btn-hide-sub-comments').classList.add('d-none')
+                commentContainer.querySelector('#post-info-comment-author-name').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                })
+            })
+
+
+            if (comment.subComments.length === 0) {
+                commentContainer.querySelector('#post-info-comment-btn-open-sub-comments').classList.add('d-none')
+                commentContainer.querySelector('#post-info-subComments-holder').classList.add('d-none')
+            } else {
+                comment.subComments.forEach(subComment => {
+                    let subCommentContainer = document.createElement('div')
+                    subCommentContainer.innerHTML = subCommentTemplate.trim()
+                    subCommentContainer.querySelector('#post-info-subComment-author-name').innerText = subComment.author
+                    subCommentContainer.querySelector('#post-info-subComment-text').innerHTML = subComment.content
+                    subCommentContainer.querySelector('#post-info-subComment-date').innerText = normalizeDateTime(subComment.createTime)
+
+                    if (subComment.modifiedDate !== null) {
+                        subCommentContainer.querySelector('#post-info-subComment-rewrite-status').classList.remove('d-none')
+                        subCommentContainer.querySelector('#post-info-subComment-rewrite-status').title = normalizeDateTime(comment.modifiedDate)
+                    }
+
+                    commentContainer.querySelector('#post-info-subComments-holder').appendChild(subCommentContainer)
+                })
+            }
+
+
+            document.querySelector('#post-info-comments-container').appendChild(commentContainer)
+
+
+        })
+
+
+    }
+
+    async sendComment(postId, text, parentId = null) {
+        await checkToken(getToken(), true)
+        if (text === "" || text.trim() === ""){
+            return
+        }
+        let data = {
+            content: text,
+            parentId: parentId
+        }
+        await fetch(POST_ID + postId + '/comment', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json', 'Authorization': 'Bearer ' + getToken()},
+            body: JSON.stringify(data)
+        })
+        window.location.reload()
     }
 }
 

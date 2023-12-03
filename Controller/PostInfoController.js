@@ -16,11 +16,17 @@ class PostInfoController {
     async init(){
 
         const postData = await this.model.getPostInfo(this.postId)
+        const addressChain = await this.model.getAddressChain(postData.addressId)
         console.log(postData)
 
+        this.view.renderAddress(addressChain)
         this.view.renderPostInfo(postData)
 
+        const commentTemplates = await this.model.getCommentSubCommentTemplate()
+        this.view.renderComments(commentTemplates.commentTemplate, commentTemplates.subCommentTemplate,  postData.comments)
     }
+
+
 }
 
 export {PostInfoController}

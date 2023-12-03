@@ -25,7 +25,7 @@ class MenuView {
             cardTemplate.querySelector('#post-template-title').textContent = post.title
             cardTemplate.querySelector('#post-template-title').style.cursor = 'pointer'
             cardTemplate.querySelector('#post-template-title').addEventListener('click', () => {
-                window.location.pathname = POST_PAGE + post.id
+                window.location.href = POST_PAGE + post.id
             })
             cardTemplate.querySelector('#post-template-date').textContent = ' - ' + normalizeDateTime(post.createTime)
             cardTemplate.querySelector('#post-template-title').setAttribute('data-id', post.id)
