@@ -20,9 +20,9 @@ export async function getPageHtml(pageName, responseHandler) {
             throw new Error(`Failed to fetch ${response.status}`)
         }
         const text = await response.text()
-        if (responseHandler && typeof responseHandler === 'function'){
+        if (responseHandler && typeof responseHandler === 'function') {
             return responseHandler(text)
-        }else{
+        } else {
             return text
         }
     } catch (error) {
@@ -58,14 +58,14 @@ export function isImageValid(url, callback) {
 }
 
 
-export function smoothScrollToBottom(){
+export function smoothScrollToBottom() {
     window.scrollTo({
         top: document.body.scrollHeight,
         behavior: "smooth"
     });
 }
 
-export function smoothScrollToTop(){
+export function smoothScrollToTop() {
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -102,25 +102,25 @@ export async function checkToken(token, redirect = false) {
             }
         })
         if (!response.ok) {
-            if (redirect){
+            if (redirect) {
                 redirectTo(LOGIN_PAGE)
             }
             throw new Error(`Failed to fetch ${response.status}`)
         }
         const userProfile = await response.json()
-        return userProfile.email
+        return {email: userProfile.email, id: userProfile.id}
     } catch (error) {
     }
 }
 
-export function redirectTo(pathName){
-    if (window.location.pathname !== pathName){
+export function redirectTo(pathName) {
+    if (window.location.pathname !== pathName) {
         window.location.pathname = pathName
     }
 }
 
-export function normalizeDate(date){
-    return date.substring(0,10).split('-').reverse().join('.')
+export function normalizeDate(date) {
+    return date.substring(0, 10).split('-').reverse().join('.')
 }
 
 export function normalizeDateTime(inputDateTime) {

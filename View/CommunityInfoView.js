@@ -3,7 +3,7 @@ import {
     LIKE_COLOR,
     MALE,
     MAN,
-    MAX_LETTERS_ON_DESCRIPTION,
+    MAX_LETTERS_ON_DESCRIPTION, POST_PAGE,
     SUB,
     SUBSCRIBE,
     UN_SUBSCRIBE,
@@ -114,6 +114,10 @@ class CommunityInfoView {
             cardTemplate.innerHTML = template.trim()
             cardTemplate.querySelector('#post-template-author').textContent = post.author
             cardTemplate.querySelector('#post-template-title').textContent = post.title
+            cardTemplate.querySelector('#post-template-title').style.cursor = 'pointer'
+            cardTemplate.querySelector('#post-template-title').addEventListener('click', () => {
+                window.location.href = POST_PAGE + post.id
+            })
             cardTemplate.querySelector('#post-template-date').textContent = ' - ' + normalizeDateTime(post.createTime)
             cardTemplate.querySelector('#post-template-title').setAttribute('data-id', post.id)
 
