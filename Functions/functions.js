@@ -120,6 +120,9 @@ export function redirectTo(pathName) {
 }
 
 export function normalizeDate(date) {
+    if (date === null){
+        return "не указана"
+    }
     return date.substring(0, 10).split('-').reverse().join('.')
 }
 
