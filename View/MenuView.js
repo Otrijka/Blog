@@ -169,18 +169,6 @@ class MenuView {
     }
 
 
-    checkAndDisableBtn(currentPage, pageCount) {
-        document.querySelector('#btn-next-page').disabled = false
-        document.querySelector('#btn-prev-page').disabled = false
-
-        if (currentPage === 1) {
-            document.querySelector('#btn-prev-page').disabled = true
-        }
-        if (currentPage === pageCount) {
-            document.querySelector('#btn-next-page').disabled = true
-        }
-    }
-
 }
 
 

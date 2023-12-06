@@ -19,5 +19,5 @@ document.querySelector('#btn-next-page').addEventListener('click', async () =>{
 })
 
 document.querySelector('#filter-page-post-size').addEventListener('change',  async () =>{
-    await communityInfoController.changePageSize()
+    await communityInfoController.useFilters()
 })
