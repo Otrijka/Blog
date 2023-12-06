@@ -53,7 +53,7 @@ class CommunityInfoView {
             let adminContainer = document.createElement('div')
             adminContainer.innerHTML = adminTemplate.trim()
             adminContainer.querySelector('#admin-template-image').src = (admin.gender === MALE) ? MAN : WOMAN
-            adminContainer.querySelector('#admin-template-name').src = admin.fullName
+            adminContainer.querySelector('#admin-template-name').innerText = admin.fullName
 
             while (adminContainer.firstChild) {
                 adminFragment.appendChild(adminContainer.firstChild);
