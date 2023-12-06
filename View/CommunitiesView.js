@@ -10,8 +10,16 @@ class CommunitiesView {
             let container = document.createElement('div')
             container.innerHTML = template.trim()
 
-            let btn = container.querySelector('#community-template-btn')
+            container.querySelector('#community-template-name').innerText = community.name
+            container.querySelector('#community-template-name').style.cursor = 'pointer'
+            container.querySelector('#community-template-name').addEventListener('click', () => {
+                window.location.pathname = COMMUNITY + community.id
+            })
 
+            let btn = container.querySelector('#community-template-btn')
+            if (getToken() === null){
+                btn.classList.add('d-none')
+            }
             switch (community.userRole) {
                 case ADMIN:
                     btn.classList.replace('d-block', 'd-none')
@@ -38,14 +46,6 @@ class CommunitiesView {
                     }
                 }
             })
-
-            container.querySelector('#community-template-name').innerText = community.name
-            container.querySelector('#community-template-name').style.cursor = 'pointer'
-            container.querySelector('#community-template-name').addEventListener('click', () => {
-                window.location.pathname = COMMUNITY + community.id
-            })
-
-
             holder.appendChild(container)
         })
 

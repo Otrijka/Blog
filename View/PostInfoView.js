@@ -35,9 +35,9 @@ class PostInfoView {
         document.querySelector('#post-template-description').innerHTML = post.description.replace(/\n/g, ' <br> ')
         document.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
         document.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
+        document.querySelector('#post-template-like-icon').style.cursor = (getToken() !== null) ? "pointer" : "default"
         document.querySelector('#post-template-like-icon').addEventListener('click', async () => {
-            if (await checkToken(getToken()) === undefined) {
-                console.log('Denied like UnAuthorized')
+            if (getToken() === null) {
                 return
             }
             let method = (document.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
@@ -61,7 +61,7 @@ class PostInfoView {
                 document.querySelector('#post-template-like-icon').classList.replace('bi-heart-fill', 'bi-heart')
                 document.querySelector('#post-template-likes-count').textContent = parseInt(document.querySelector('#post-template-likes-count').textContent) - 1
                 try {
-                    const response = fetch(`https://blog.kreosoft.space/api/post/${cardTemplate.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
+                    const response = fetch(`https://blog.kreosoft.space/api/post/${document.querySelector('#post-template-title').getAttribute('data-id')}/like`, {
                         method: method,
                         headers: {
                             'Content-type': 'application/json',
