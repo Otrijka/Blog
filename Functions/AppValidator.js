@@ -47,8 +47,7 @@
     }
 
     UrlIsValid(url){
-
-        return true
+        return /^https?:\/\/.*/.test(url)
     }
 
     TagsIsValid(tags){
