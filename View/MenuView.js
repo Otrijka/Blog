@@ -48,9 +48,9 @@ class MenuView {
             cardTemplate.querySelector('#post-template-comments-count').textContent = post.commentsCount
             cardTemplate.querySelector('#post-template-reading-time').textContent = 'Время чтения: ' + post.readingTime + ' мин.'
             cardTemplate.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
+            cardTemplate.querySelector('#post-template-like-icon').style.cursor = (getToken() !== null) ? "pointer" : "default"
             cardTemplate.querySelector('#post-template-like-icon').addEventListener('click', async () => {
-                if (await checkToken(getToken()) === undefined) {
-                    console.log('Denied like UnAuthorized')
+                if (getToken() === null) {
                     return
                 }
                 let method = (cardTemplate.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'
