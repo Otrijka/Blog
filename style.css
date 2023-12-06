@@ -1,0 +1,30 @@
+.req-field-text {
+    color: red;
+}
+
+.custom-b-border {
+    border-bottom: 2px solid #dbdbdb;
+}
+
+.medal-image {
+    position: absolute;
+    left: 65%;
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.sub-comment-border{
+    border-left: 3px solid #98CBFEFF
+}
+
+.address-select{
+    width: 100%;
+}
+.content-place{
+    flex: 1 0 auto;
+}

@@ -10,10 +10,7 @@ class PostInfoView {
     renderPostInfo(post) {
         document.querySelector('#post-template-author').textContent = post.author
         document.querySelector('#post-template-title').textContent = post.title
-        document.querySelector('#post-template-title').style.cursor = 'pointer'
-        document.querySelector('#post-template-title').addEventListener('click', () => {
-            window.location.pathname = POST_PAGE + post.id
-        })
+
         document.querySelector('#post-template-date').textContent = ' - ' + normalizeDateTime(post.createTime)
         document.querySelector('#post-template-title').setAttribute('data-id', post.id)
 

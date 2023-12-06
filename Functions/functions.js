@@ -139,3 +139,115 @@ export function normalizeDateTime(inputDateTime) {
 
     return formattedDateTime;
 }
+
+
+export async function addAddressSelect(parentAddress, currentAddressLevel, addressInfo) {
+
+    let addressHandler = document.querySelector('#create-post-address-handler');
+    let template = await getPageHtml('/Templates/AddressSelectTemplate');
+    let newContainerId = 'create-post-address-level-' + currentAddressLevel;
+    let newSelectId = 'create-post-select-level-' + currentAddressLevel;
+    let newLabelId = 'create-post-label-' + currentAddressLevel;
+
+    let templateContainer = document.createElement('div');
+    templateContainer.id = newContainerId;
+    templateContainer.classList.add('form-group', 'mb-2');
+
+    templateContainer.innerHTML = template;
+
+    if (currentAddressLevel === 1) {
+        templateContainer.querySelector('#create-post-label-').innerText = 'Субъект РФ'
+    }
+
+    templateContainer.querySelector('#create-post-select-level-').id = newSelectId;
+    templateContainer.querySelector('#create-post-label-').id = newLabelId;
+    templateContainer.querySelector('#' + newLabelId).htmlFor = newSelectId;
+    addressHandler.appendChild(templateContainer);
+
+    let newSelect = document.querySelector('#' + newSelectId);
+
+    $(newSelect).select2({
+        ajax: {
+            url: "https://blog.kreosoft.space/api/address/search",
+            dataType: 'json',
+            type: 'GET',
+            data: function (params) {
+                return {
+                    parentObjectId: parentAddress,
+                    query: params.term
+                };
+            },
+            processResults: function (data) {
+                data.unshift({objectId: "", text: "Не выбрано", objectGuid: "", objectLevelText: ""});
+                return {
+                    results: data.map(item => ({
+                        id: item.objectId,
+                        text: item.text,
+                        guid: item.objectGuid,
+                        levelText: item.objectLevelText
+                    }))
+                };
+            }
+        },
+    });
+
+    let placeholderOption = new Option('Не выбрано', {
+        objectId: "",
+        text: "Не выбрано",
+        objectGuid: "",
+        objectLevelText: ""
+    }, true, true);
+    $(newSelect).append(placeholderOption).trigger('change');
+
+    $(newSelect).on('select2:select', async function (e) {
+        let address = {
+            id: e.params.data.id,
+            guid: e.params.data.guid,
+            text: e.params.data.text,
+            levelText: e.params.data.levelText,
+        };
+
+        if (newLabelId === 'create-post-label-1'){
+            document.querySelector('#' + newLabelId).innerText = 'Субъект РФ'
+        }else{
+            document.querySelector('#' + newLabelId).innerText = (address.levelText !== '') ? address.levelText : "Следующий элемент адреса";
+
+        }
+
+        if (addressInfo[currentAddressLevel] !== undefined) {
+            addressInfo[currentAddressLevel] = address;
+            addressInfo.splice(currentAddressLevel + 1)
+        } else {
+            addressInfo.push(address)
+        }
+        console.log("Текущая цепочка");
+        console.log(addressInfo);
+        console.log("---------------");
+
+        const nextData = await (await fetch('https://blog.kreosoft.space/api/address/search?parentObjectId=' + address.id)).json()
+        clearSelects(newContainerId)
+        if (nextData.length === 0) {
+            return
+        }
+
+        if (address.id !== '') {
+            await addAddressSelect(address.id, currentAddressLevel + 1, addressInfo);
+            smoothScrollToBottom()
+        }
+    });
+}
+
+export function clearSelects(selectRef) {
+    let addressHandler = document.querySelector('#create-post-address-handler');
+    let childrenArray = Array.from(addressHandler.children);
+
+    let index = childrenArray.indexOf(document.querySelector('#' + selectRef));
+
+    if (index !== -1) {
+        let newArray = childrenArray.slice(0, index + 1);
+
+        addressHandler.innerHTML = '';
+
+        newArray.forEach(child => addressHandler.appendChild(child));
+    }
+}
