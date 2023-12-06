@@ -17,26 +17,32 @@
                     <input type="text" id="post-info-comment-refactor-input" class="form-control">
                 </div>
                 <div class="col-12 col-sm">
-                    <button type="button" class="btn btn-warning" id="post-info-comment-btn-refactor-send">Редактировать</button>
+                    <button type="button" class="btn btn-warning" id="post-info-comment-btn-refactor-send">
+                        Редактировать
+                    </button>
                 </div>
             </div>
         </div>
         <span id="post-info-comment-date">19.12.2022</span>
-        <span class="text-primary" id="post-info-comment-btn-answer" style="cursor: pointer">Ответить</span>
+        <span class="text-primary clickable" id="post-info-comment-btn-answer">Ответить</span>
         <div class="d-none mb-2" id="post-info-comment-answer">
             <div class="row">
                 <div class="col-12 col-sm-9">
-                    <input placeholder="Оставьте комментарий..." type="text" id="post-info-comment-answer-input" class="form-control">
+                    <input placeholder="Оставьте комментарий..." type="text" id="post-info-comment-answer-input"
+                           class="form-control">
                 </div>
                 <div class="col-12 col-sm">
-                    <button type="button" class="btn btn-primary" id="post-info-comment-btn-answer-send">Отправить</button>
+                    <button type="button" class="btn btn-primary" id="post-info-comment-btn-answer-send">Отправить
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="text-primary" id="post-info-comment-btn-open-sub-comments" style="cursor: pointer">Раскрыть ответы</div>
-    <ul class="list-group d-none" id="post-info-subComments-holder" style="border-left: 3px solid #98CBFEFF">
+    <div class="text-primary clickable" id="post-info-comment-btn-open-sub-comments">Раскрыть ответы</div>
+    <ul class="list-group d-none sub-comment-border" id="post-info-subComments-holder">
     </ul>
-    <div class="text-primary d-none" id="post-info-comment-btn-hide-sub-comments" style="cursor: pointer">Скрыть ответы</div>
+    <div class="text-primary d-none clickable" id="post-info-comment-btn-hide-sub-comments">Скрыть
+        ответы
+    </div>
 </li>
