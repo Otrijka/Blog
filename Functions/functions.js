@@ -105,6 +105,7 @@ export async function checkToken(token, redirect = false) {
             if (redirect) {
                 redirectTo(LOGIN_PAGE)
             }
+            removeToken()
             throw new Error(`Failed to fetch ${response.status}`)
         }
         const userProfile = await response.json()

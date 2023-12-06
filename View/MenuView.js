@@ -16,6 +16,31 @@ class MenuView {
         })
     }
 
+    renderPagination(currentPage, pageCount){
+        let container = document.querySelector('.pagination')
+
+        container.innerHTML = ""
+        container.innerHTML += `<li class="page-item">
+                            <button class="page-link ${currentPage === 1 ? 'disabled' : ''}" id="btn-prev-page">
+                                <i class="bi bi-chevron-double-left"></i>
+                            </button>
+                        </li>`
+
+        for (let page = Math.max(1, currentPage - 2); page <= Math.min(pageCount, currentPage + 2); page++) {
+            container.innerHTML += `
+        <li class="page-item number ${page === currentPage ? 'active' : ''}">
+          <button class="page-link" onclick="">${page}</button>
+        </li>
+      `;
+        }
+
+        container.innerHTML += `<li class="page-item">
+                            <button class="page-link ${currentPage === pageCount ? 'disabled' : ''}" id="btn-next-page" aria-label="Следующая">
+                                <i class="bi bi-chevron-double-right"></i>
+                            </button>
+                        </li>`
+    }
+
     renderPosts(template, posts) {
         this.postsContainer.innerHTML = ''
         posts.forEach(post => {
@@ -143,18 +168,6 @@ class MenuView {
         document.querySelector('#filter-page-post-size').value = (params.size !== null) ? params.size : CURRENT_PAGE_SIZE
     }
 
-
-    checkAndDisableBtn(currentPage, pageCount) {
-        document.querySelector('#btn-next-page').disabled = false
-        document.querySelector('#btn-prev-page').disabled = false
-
-        if (currentPage === 1) {
-            document.querySelector('#btn-prev-page').disabled = true
-        }
-        if (currentPage === pageCount) {
-            document.querySelector('#btn-next-page').disabled = true
-        }
-    }
 
 }
 

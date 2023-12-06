@@ -53,7 +53,7 @@ class CommunityInfoView {
             let adminContainer = document.createElement('div')
             adminContainer.innerHTML = adminTemplate.trim()
             adminContainer.querySelector('#admin-template-image').src = (admin.gender === MALE) ? MAN : WOMAN
-            adminContainer.querySelector('#admin-template-name').src = admin.fullName
+            adminContainer.querySelector('#admin-template-name').innerText = admin.fullName
 
             while (adminContainer.firstChild) {
                 adminFragment.appendChild(adminContainer.firstChild);
@@ -251,6 +251,31 @@ class CommunityInfoView {
         if (currentPage === pageCount) {
             document.querySelector('#btn-next-page').disabled = true
         }
+    }
+
+    renderPagination(currentPage, pageCount){
+        let container = document.querySelector('.pagination')
+
+        container.innerHTML = ""
+        container.innerHTML += `<li class="page-item">
+                            <button class="page-link ${currentPage === 1 ? 'disabled' : ''}" id="btn-prev-page">
+                                <i class="bi bi-chevron-double-left"></i>
+                            </button>
+                        </li>`
+
+        for (let page = Math.max(1, currentPage - 2); page <= Math.min(pageCount, currentPage + 2); page++) {
+            container.innerHTML += `
+        <li class="page-item number ${page === currentPage ? 'active' : ''}">
+          <button class="page-link" onclick="">${page}</button>
+        </li>
+      `;
+        }
+
+        container.innerHTML += `<li class="page-item">
+                            <button class="page-link ${currentPage === pageCount ? 'disabled' : ''}" id="btn-next-page" aria-label="Следующая">
+                                <i class="bi bi-chevron-double-right"></i>
+                            </button>
+                        </li>`
     }
 }
 

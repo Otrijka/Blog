@@ -18,8 +18,7 @@ class CommunityInfoController {
     }
 
     async init() {
-        const tags = await this.model.getTags()
-        this.view.renderTags(tags)
+        this.view.renderTags(await this.model.getTags())
 
         let info = await this.model.getCommunityInfo(this.communityId)
         const adminTemplate = await this.model.getAdminTemplate()
@@ -31,17 +30,18 @@ class CommunityInfoController {
 
         this.view.renderPosts(await this.model.getPostTemplate(), posts)
 
-        this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
+        this.view.renderPagination(this.model.currentPage, this.model.currentPageCount)
 
+        let btns = document.querySelectorAll('.number')
+        btns.forEach(btn => btn.addEventListener('click', async () => {
+            this.currentQuery.set('page', btn.innerText)
+            window.location.search = this.currentQuery.toString()
+        }))
     }
 
     async useFilters() {
-        this.model.currentPage = 1
         const query = buildQuery(this.view.getFiltersValues())
-        this.currentQuery = query
-        const posts = await this.model.getCommunityPosts(this.communityId, query)
-        window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
-        this.view.renderPosts(await this.model.getPostTemplate(), posts)
+        window.location.search = query.toString()
     }
 
     async switchPage(param) {
@@ -52,26 +52,11 @@ class CommunityInfoController {
             this.model.currentPage = this.model.currentPage > 1 ? this.model.currentPage - 1 : this.model.currentPage
         }
 
-        this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
         const query = buildQuery(this.view.getFiltersValues(this.model.currentPage))
-        this.currentQuery = query
-        const posts = await this.model.getCommunityPosts(this.communityId, this.currentQuery)
-        window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
-        this.view.renderPosts(await this.model.getPostTemplate(), posts)
+        window.location.search = query
 
-        smoothScrollToTop()
     }
 
-    async changePageSize() {
-        const query = buildQuery(this.view.getFiltersValues())
-        this.currentQuery = query
-        const posts = await this.model.getCommunityPosts(this.communityId, this.currentQuery)
-        this.view.checkAndDisableBtn(this.model.currentPage, this.model.currentPageCount)
-        window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
-        this.view.renderPosts(await this.model.getPostTemplate(), posts)
-
-        smoothScrollToTop()
-    }
 }
 
 export {CommunityInfoController}

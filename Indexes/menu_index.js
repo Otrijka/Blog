@@ -19,7 +19,7 @@ document.querySelector('#btn-next-page').addEventListener('click', async () =>{
 
 
 document.querySelector('#filter-page-post-size').addEventListener('change',  async () =>{
-    await menuController.changePageSize()
+    await menuController.useFilters()
 })
 
 document.querySelector('#btn-new-post').addEventListener('click', () => {
