@@ -74,7 +74,6 @@ class CreatePostModel {
                 },
                 body: JSON.stringify(data)
             })
-            console.log(JSON.stringify(data))
             return await response.json()
         } catch (error) {
             console.error(error)

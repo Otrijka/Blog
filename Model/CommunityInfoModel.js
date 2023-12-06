@@ -52,7 +52,6 @@ class CommunityInfoModel {
         this.currentPageCount = data.pagination.count
         this.currentPage = data.pagination.current
         this.currentPageSize = data.pagination.size
-        console.log(data)
         return data
     }
 

@@ -18,7 +18,6 @@ class PostInfoController {
 
         const postData = await this.model.getPostInfo(this.postId)
         const addressChain = await this.model.getAddressChain(postData.addressId)
-        console.log(postData)
 
         this.view.renderAddress(addressChain)
         this.view.renderPostInfo(postData)

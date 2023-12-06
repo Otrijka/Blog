@@ -38,7 +38,6 @@ class CommunityInfoController {
     async useFilters() {
         this.model.currentPage = 1
         const query = buildQuery(this.view.getFiltersValues())
-        console.log(query)
         this.currentQuery = query
         const posts = await this.model.getCommunityPosts(this.communityId, query)
         window.history.pushState({}, '', window.location.pathname + '?' + this.currentQuery)
