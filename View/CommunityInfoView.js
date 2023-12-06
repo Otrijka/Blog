@@ -188,7 +188,6 @@ class CommunityInfoView {
             cardTemplate.querySelector('#post-template-community').textContent = (post.communityName != null) ? 'в сообществе ' + '"' + post.communityName + '"' : ''
             cardTemplate.querySelector('#post-template-like-icon').addEventListener('click', async () => {
                 if (await checkToken(getToken()) === undefined) {
-                    console.log('Denied like UnAuthorized')
                     return
                 }
                 let method = (cardTemplate.querySelector('#post-template-like-icon').classList.contains('bi-heart-fill')) ? 'DELETE' : 'POST'

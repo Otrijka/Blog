@@ -33,7 +33,7 @@ class ProfileController {
                 window.location.href = MAIN_PAGE
             }
         }catch (error){
-            console.log(error)
+            console.error(error)
         }
 
 

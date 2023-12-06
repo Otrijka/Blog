@@ -30,7 +30,7 @@ class MenuModel {
     }
     async getPosts(query) {
         try {
-            console.log(query)
+
             let postList = []
             let url = POST
             if (undefined !== query) {
@@ -43,7 +43,7 @@ class MenuModel {
                 }
             })
             const data = await response.json()
-            console.log(data)
+
             this.currentPageCount = data.pagination.count
             this.currentPage = data.pagination.current
             this.currentPageSize = data.pagination.size

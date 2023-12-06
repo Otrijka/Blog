@@ -102,7 +102,6 @@ class PostInfoView {
     }
 
     renderComments(postId, commentTemplate, subCommentTemplate, rootComments, checkResponse = {id: "", email: ""}) {
-        console.log(checkResponse)
         rootComments.forEach(comment => {
             let commentContainer = this.initComment(comment, commentTemplate, checkResponse, postId)
 
