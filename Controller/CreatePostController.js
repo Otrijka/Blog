@@ -1,7 +1,7 @@
 import {CreatePostModel} from "../Model/CreatePostModel.js";
 import {CreatePostView} from "../View/CreatePostView.js";
 import {MAIN_PAGE} from "../Constants/dimens.js";
-import {getPageHtml, smoothScrollToBottom} from "../Functions/functions.js";
+import {checkToken, getPageHtml, getToken, smoothScrollToBottom} from "../Functions/functions.js";
 
 
 async function newSelectF(parentAddress, currentAddressLevel, addressInfo) {
@@ -135,7 +135,7 @@ class CreatePostController {
 
 
     async init() {
-
+        await checkToken(getToken(),true)
         const communities = await this.model.getAdminUsersCommunities()
         const tags = await this.model.getTags()
         this.view.renderTags(tags)
