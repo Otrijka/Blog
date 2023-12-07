@@ -69,6 +69,9 @@ class CommunityInfoView {
         let btnSub = document.querySelector('#communityInfo-btn-sub-unsub')
         let btnWritePost = document.querySelector('#communityInfo-btn-write-post')
 
+        if (getToken() === null){
+            btnSub.classList.add('d-none')
+        }
         switch (info.userRole) {
             case ADMIN:
                 btnSub.classList.add('d-none')
